@@ -1,4 +1,7 @@
-<?php echo $this->element('admin/header'); ?>
+<?php
+    echo $this->element('admin/header');
+    echo $this->Session->flash();
+?>
 
 <div class="container">
     <div class="row">

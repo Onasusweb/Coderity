@@ -31,7 +31,7 @@ class User extends CoderityAppModel {
 				'message' => 'Please enter in your old password.'
 			),
 			'oldPass' => array(
-        		'rule' => 'oldPass',
+        		'rule' => 'checkPassword',
            		'message' => 'The old password you entered is incorrect.'
     		)
 		),
@@ -141,24 +141,29 @@ class User extends CoderityAppModel {
  * Function to check the users old password is correct
  *
  * @param array $data The users data
- * @return booleen true is it's right, false otherwise
+ * @return booleen true is it matches, false otherwise
  */
-    function oldPass($check) {
+    function checkPassword($check) {
         $value = array_shift($check);
 
         if (strlen($value) == 0) {
             return true;
         }
 
-        $this->contain();
-        $user = $this->findById($this->data['User']['id'], 'password');
-        $oldPass = Security::hash(Configure::read('Security.salt') . $value);
-
-        if ($user['User']['password'] == $oldPass) {
-            return true;
+        // if no userId is set
+        if (empty($this->data['User']['id'])) {
+        	return false;
         }
 
-        return false;
+        $this->contain();
+        $user = $this->findById($this->data['User']['id'], 'password');
+
+        if (!$user) {
+        	return false;
+        }
+
+        $passwordHasher = new BlowfishPasswordHasher();
+        return $passwordHasher->check($value, $user['User']['password']);
     }
 
 /**

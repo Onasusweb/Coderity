@@ -144,20 +144,12 @@ class UsersController extends CoderityAppController {
 		}
 	}
 
-	public function admin_changepassword() {
-		if (!empty($this->request->data)) {
+	public function admin_password() {
+		if ($this->request->is(array('post', 'put'))) {
 			$this->request->data['User']['id'] = $this->Auth->user('id');
-			$this->User->contain();
-			$user = $this->User->findById($this->Auth->user('id'), 'password');
-			$this->request->data['User']['current_password'] = $user['User']['password'];
-
-			if (!empty($this->request->data['User']['before_password'])){
-				$this->request->data['User']['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['User']['before_password']);
-			}
-
-    		if($this->User->save($this->request->data)) {
+			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('Your password has been changed successfully.'));
-				$this->redirect(array('action'=>'index'));
+				return $this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash(__('Unfortunately there was a problem.  Please correct the errors below.'), 'error');
 			}

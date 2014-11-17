@@ -19,7 +19,7 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
-                    <?php echo $this->Html->link('<i class="fa fa-user fa-fw"></i> ' . __('Change Password'), array('plugin' => false, 'controller' => 'users', 'action' => 'changepassword'), array('escape' => false)); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-user fa-fw"></i> ' . __('Change Password'), array('plugin' => false, 'controller' => 'users', 'action' => 'password'), array('escape' => false)); ?>
                 </li>
                 <li class="divider"></li>
                 <li>
