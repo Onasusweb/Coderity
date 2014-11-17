@@ -1,9 +1,3 @@
-<?php
-	$this->Html->addCrumb(__('Manage Articles'), array('action' => 'index'));
-	$this->Html->addCrumb(__('Add'), array('action' => 'add'));
-	echo $this->element('admin/crumb');
-?>
-
 <h1 class="page-header"><?php echo __('Edit Article');?></h1>
 
 <div class="panel panel-default">
@@ -11,82 +5,39 @@
 		<?php echo __('Article Details');?>
     </div>
 	<div class="panel-body">
-		<?php
-			echo $this->Form->create('Article', array('type' => 'file'));
-			echo $this->Form->input('id');
-		?>
+		<?php echo $this->Form->create(); ?>
 			<fieldset>
-				<div class="form-group">
-					<?php
-						echo $this->Form->input('title',
-												array('class' => 'form-control'));
-					?>
-				</div>
-				<div class="form-group">
-					<?php
-						echo $this->Form->input('brief',
-												array('class' => 'form-control'));
-					?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Ck->input('content'); ?>
-				</div>
+				<?php
+					echo $this->Form->hidden('id');
+					echo $this->Form->input('title', array('div' => 'form-group', 'class' => 'form-control'));
+					echo $this->Form->input('slug', array('div' => 'form-group', 'class' => 'form-control'));
+					echo $this->Form->input('brief', array('div' => 'form-group', 'class' => 'form-control'));
+					echo $this->Ck->input('content', array('div' => 'form-group'));
+				?>
+
+
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('meta_description',
-														array('class' => 'form-control'));
-							?>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('meta_keywords',
-														array('class' => 'form-control'));
-							?>
-						</div>
-					</div>
-				</div>
-				<?php if (!empty($this->request->data['Article']['image'])
-						  && (!is_array($this->request->data['Article']['image']))) :
-				?>
-					<div class="form-group cms-item-current-image">
-						<label><?php echo __('Current Image');?>:</label>
 						<?php
-							echo $this->Html->image('uploads/thumbs/' . $this->request->data['Article']['image']);
+							echo $this->Form->input('meta_description', array('div' => 'form-group', 'class' => 'form-control'));
 						?>
 					</div>
-					<div class="form-group">
-						<?php echo $this->Form->checkbox('image_delete',
-														 array('value' => $this->request->data['Article']['id'])); ?>
-						<?php echo __('Delete this image?');?>
+					<div class="col-lg-6">
+						<?php
+							echo $this->Form->input('meta_keywords', array('div' => 'form-group', 'class' => 'form-control'));
+						?>
 					</div>
-				<?php endif; ?>
+				</div>
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('image',
-														array('type' => 'file',
-															  'class' => 'form-control'));
-							?>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('date',
-														array('class' => 'datepicker',
-														 	  'label' => array('text' => __('Date'), 			'class' => 'datepicker-label')));
-							?>
-						</div>
+						<?php
+							echo $this->Form->input('date', array('div' => 'form-group'));
+						?>
 					</div>
 				</div>
 				<div class="form-group">
-				<?php echo $this->Form->submit(__('Save Changes'),
-											   array('class' => 'btn btn-primary'));?>
+					<?php echo $this->Form->submit(__('Add Article'),
+												   array('class' => 'btn btn-primary'));?>
 				</div>
 			</fieldset>
 		<?php echo $this->Form->end();?>

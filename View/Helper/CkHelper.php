@@ -1,16 +1,15 @@
 <?php
 App::uses('Helper', 'View');
 class CkHelper extends Helper {
-
     public $helpers = array('Form');
 
-	/**
-	* This function inserts CK Editor for a form input
-	*
-	* @param string $input The name of the field, can be field_name or Model.field_name
-	* @param array $options Options include $options['label'] for a custom label - this can be expanded on if required
-	*/
-    function input($input, $options = array()) {
+/**
+* This function inserts CK Editor for a form input
+*
+* @param string $input The name of the field, can be field_name or Model.field_name
+* @param array $options Options include $options['label'] for a custom label - this can be expanded on if required
+*/
+    public function input($input, $options = array()) {
         $input = explode('.', $input);
         if(empty($input[1])) {
         	$field = $input[0];
@@ -21,9 +20,9 @@ class CkHelper extends Helper {
         }
 
         if(!empty($options['label'])) {
-        	echo '<h4>'.$options['label'].'</h4>';
+        	echo '<label>' . $options['label'] . '</label>';
         } else {
-        	echo '<h4>'.Inflector::humanize(Inflector::underscore($field)).'</h4>';
+        	echo '<label>' . Inflector::humanize(Inflector::underscore($field)) . '</label>';
         }
 
         echo $this->Form->error($model.'.'.$field);
@@ -33,7 +32,7 @@ class CkHelper extends Helper {
 				CKEDITOR.replace('<?php echo Inflector::camelize($model.'_'.$field); ?>');
 			</script>
 
-			<p>&nbsp;</p>
+            <p>&nbsp;</p>
 		<?php
     }
 }

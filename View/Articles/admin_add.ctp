@@ -1,9 +1,3 @@
-<?php
-	$this->Html->addCrumb(__('Manage Articles'), array('action' => 'index'));
-	$this->Html->addCrumb(__('Add'), array('action' => 'add'));
-	echo $this->element('admin/crumb');
-?>
-
 <h1 class="page-header"><?php echo __('Add Article');?></h1>
 
 <div class="panel panel-default">
@@ -11,59 +5,32 @@
 		<?php echo __('Article Details');?>
     </div>
 	<div class="panel-body">
-		<?php echo $this->Form->create('Article', array('type' => 'file')); ?>
+		<?php echo $this->Form->create(); ?>
 			<fieldset>
-				<div class="form-group">
-					<?php
-						echo $this->Form->input('title',
-												array('class' => 'form-control'));
-					?>
-				</div>
-				<div class="form-group">
-					<?php
-						echo $this->Form->input('brief',
-												array('class' => 'form-control'));
-					?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Ck->input('content'); ?>
-				</div>
+				<?php
+					echo $this->Form->input('title', array('div' => 'form-group', 'class' => 'form-control'));
+					echo $this->Form->input('brief', array('div' => 'form-group', 'class' => 'form-control'));
+					echo $this->Ck->input('content', array('div' => 'form-group'));
+				?>
+
+
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('meta_description',
-														array('class' => 'form-control'));
-							?>
-						</div>
+						<?php
+							echo $this->Form->input('meta_description', array('div' => 'form-group', 'class' => 'form-control'));
+						?>
 					</div>
 					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('meta_keywords',
-														array('class' => 'form-control'));
-							?>
-						</div>
+						<?php
+							echo $this->Form->input('meta_keywords', array('div' => 'form-group', 'class' => 'form-control'));
+						?>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('image',
-														array('type' => 'file',
-															  'class' => 'form-control'));
-							?>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('date',
-														array('class' => 'datepicker',
-														 	  'label' => array('text' => __('Date'), 			'class' => 'datepicker-label')));
-							?>
-						</div>
+						<?php
+							echo $this->Form->input('date', array('div' => 'form-group'));
+						?>
 					</div>
 				</div>
 				<div class="form-group">

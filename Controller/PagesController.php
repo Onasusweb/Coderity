@@ -87,17 +87,17 @@ class PagesController extends CoderityAppController {
 			$this->set(compact('parent', 'parents'));
 		}
 
-		if (Configure::read('Content.topMenu')) {
+		//if (Configure::read('Content.topMenu')) {
 			$this->set('topPages', $this->Page->find('all', array('conditions' => array('top_show' => true, 'element' => false, $conditions), 'order' => array('top_order' => 'asc'))));
-		}
-		if (Configure::read('Content.bottomMenu')) {
+		//}
+		//if (Configure::read('Content.bottomMenu')) {
 			$this->set('bottomPages', $this->Page->find('all', array('conditions' => array('bottom_show' => true, 'element' => false, $conditions), 'order' => array('bottom_order' => 'asc'))));
-		}
+		//}
 		$this->set('staticPages', $this->Page->find('all', array('conditions' => array('top_show' => false, 'bottom_show' => false, 'element' => false, $conditions), 'order' => array('Page.name' => 'asc'))));
 
-		if (Configure::read('Content.pageElements')) {
+		//if (Configure::read('Content.pageElements')) {
 			$this->set('pageElements', $this->Page->find('all', array('conditions' => array('element' => true, $conditions), 'order' => array('Page.name' => 'asc'))));
-		}
+		//}
 
 		$this->set('parent_id', $parent_id);
 		$this->set('search', $search);

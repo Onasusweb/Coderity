@@ -1,8 +1,4 @@
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header"><?php echo __('Add a User'); ?></h1>
-    </div>
-</div>
+<h1 class="page-header"><?php echo __('Add a User'); ?></h1>
 
 <div class="panel panel-default">
     <div class="panel-heading">

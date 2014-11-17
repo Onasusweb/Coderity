@@ -134,3 +134,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Dumping data for table `users`
 --
+
+ALTER TABLE `pages` CHANGE `route` `route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;

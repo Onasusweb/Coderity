@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only"><?php echo __('Toggle navigation'); ?></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -40,23 +40,23 @@
                 </li>
 
                 <li>
-                    <?php echo $this->Html->link(__('Pages'), array('plugin' => false, 'controller' => 'pages', 'action' => 'index')); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-sitemap fa-fw"></i> ' . __('Pages'), array('plugin' => false, 'controller' => 'pages', 'action' => 'index'), array('escape' => false)); ?>
                 </li>
 
                 <li>
-                    <?php echo $this->Html->link(__('Articles'), array('plugin' => false, 'controller' => 'articles', 'action' => 'index')); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-quote-right fa-fw"></i> ' . __('Articles'), array('plugin' => false, 'controller' => 'articles', 'action' => 'index'), array('escape' => false)); ?>
                 </li>
 
                 <li>
-                    <?php echo $this->Html->link(__('Admin Users'), array('plugin' => false, 'controller' => 'users', 'action' => 'index')); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-users fa-fw"></i> ' . __('Admin Users'), array('plugin' => false, 'controller' => 'users', 'action' => 'index'), array('escape' => false)); ?>
                 </li>
 
                 <li>
-                    <?php echo $this->Html->link(__('Settings'), array('plugin' => false, 'controller' => 'settings', 'action' => 'index')); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-table fa-fw"></i> ' . __('Settings'), array('plugin' => false, 'controller' => 'settings', 'action' => 'index'), array('escape' => false)); ?>
                 </li>
 
                 <li>
-                    <?php echo $this->Html->link(__('Logout'), array('plugin' => false, 'controller' => 'users', 'action' => 'logout')); ?>
+                    <?php echo $this->Html->link('<i class="fa fa-sign-out fa-fw"></i> ' . __('Logout'), array('plugin' => false, 'controller' => 'users', 'action' => 'logout'), array('escape' => false)); ?>
                 </li>
 
             </ul>

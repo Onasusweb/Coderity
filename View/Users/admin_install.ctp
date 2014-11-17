@@ -1,10 +1,4 @@
-<?php
-$this->Html->addCrumb(__('Manage Users'), array('action' => 'index'));
-$this->Html->addCrumb(__('Add'), array('action' => 'add'));
-echo $this->element('admin/crumb');
-?>
-
-<h1 class="page-header"><?php echo __('Add a User');?></h1>
+<h1 class="page-header"><?php echo __('Welcome to Coderity CMS');?></h1>
 
 <div class="panel panel-default">
     <div class="panel-heading">

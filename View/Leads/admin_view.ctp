@@ -1,9 +1,3 @@
-<?php
-$this->Html->addCrumb(__('Manage Leads'), array('action' => 'index'));
-$this->Html->addCrumb(__('Lead Details'), array('action' => 'view', $lead['Lead']['id']));
-echo $this->element('admin/crumb');
-?>
-
 <h1 class="page-header"><?php echo __('Lead Details');?></h1>
 
 <div class="panel panel-default">

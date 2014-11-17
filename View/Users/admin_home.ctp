@@ -1,8 +1,4 @@
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header"><?php echo __('Coderity CMS Dashboard'); ?></h1>
-    </div>
-</div>
+<h1 class="page-header"><?php echo __('Coderity CMS Dashboard'); ?></h1>
 
 <?php
     $folders = array(WWW_ROOT . 'img/uploads', WWW_ROOT . 'img/uploads/thumbs');

@@ -1,8 +1,4 @@
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header"><?php echo __('Admin Users'); ?></h1>
-    </div>
-</div>
+<h1 class="page-header"><?php echo __('Admin Users'); ?></h1>
 
 <div class="well">
 	<?php echo $this->Form->create('User', array('action' => 'index'));?>

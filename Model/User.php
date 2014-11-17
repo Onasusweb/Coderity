@@ -91,50 +91,58 @@ class User extends CoderityAppModel {
 	}
 
 /**
- * Function to reset user password. User will be emailed a password reset link
+ * Function to reset user password. User will get a new password by email.
  *
  * @param array $data Data containing user information which will be verified
- * @param $tokenLength
  * @return mixed User and email parameter array if success, false otherwise
  */
-    public function reset($data, $tokenLength = 16) {
-        if (!$data) {
-            throw new NotFoundException(__('There was a problem, please try again.'));
+    public function reset($data, $newPasswordLength = 8) {
+        if (!$data || empty($data['User'])) {
+            throw new NotFoundException(__('Invalid Data'));
         }
 
-        // lets validate the data
-        $this->set($this->data);
-        if (!$this->validates()) {
-            return false;
+        // Loop through given data array and put it as condition to check
+        $conditions = array();
+
+        foreach ($data['User'] as $key => $datum) {
+            if($this->hasField($key)){
+                $conditions[$key] = $datum;
+            }
         }
 
-        // Get the user
-        $user = $this->find('first', array('conditions' => array('User.email' => $data['User']['reminder_email']), 'contain' => false));
+        // Find the user
+        $user = $this->find('first', array('conditions' => $conditions, 'contain' => false));
 
         if (!$user) {
-            // now we should find by username
-            $user = $this->find('first', array('conditions' => array('User.username' => $data['User']['reminder_email']), 'contain' => false));
-        }
-
-        if (!$user) {
-            return false;
+            throw new NotFoundException(__('The email address you entered was not found.  Please try a different email address.'));
         }
 
         // Formating the data for email sending
         // Put the reset link inside the user array
-        $user['reset_key'] = substr(sha1(uniqid(rand(), true)), 0, $tokenLength);
-        $user['to']        = $user['User']['email'];
-        $user['subject']   = __('Account Reset - %s', $this->appConfigurations['name']);
-        $user['template']  = 'users/reset';;
-
-		$this->id = $user['User']['id'];
+        $user['User']['password'] = $this->generateRandomPassword($newPasswordLength);
+        $user['to']               = $user['User']['email'];
+        $user['subject']          = __('Account Reset - %s', Configure::read('Config.name'));
+        $user['template']         = 'reset';
 
         // Save the user info
-        if (!$this->saveField('reset_key', $user['reset_key'])) {
-        	return false;
+        $this->id = $user['User']['id'];
+        $this->saveField('password', $user['User']['password']);
+
+        App::uses('CakeEmail', 'Network/Email');
+
+        $email = new CakeEmail();
+        $email->from(array(Configure::read('Config.email') => Configure::read('Config.name')));
+        $email->to($user['to']);
+        $email->subject($user['subject']);
+        $email->template($user['template']);
+        $email->emailFormat('both');
+        $email->viewVars(array('data' => $user));
+
+        if (!$email->send()) {
+            throw new LogicException(__('There was a problem sending the forgotten password email. Please try again or contact us if this problem persists.'));
         }
 
-        return $this->_sendEmail($user);
+        return true;
     }
 
 /**
