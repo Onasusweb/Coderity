@@ -1,11 +1,15 @@
-<h1 class="page-header"><?php echo __('Welcome to Coderity CMS');?></h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo __('Welcome to Coderity');?></h1>
+	</div>
+</div>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+	<div class="panel-heading">
 		<h1><?php echo __('Install Coderity'); ?></h1>
 
 		<p><?php echo __('Welcome to Coderity CMS.  Please enter in the following details to create the default Admin user.'); ?></p>
-    </div>
+	</div>
 	<div class="panel-body">
 		<?php
 			echo $this->Form->create();
@@ -61,5 +65,5 @@
 				</div>
 			</fieldset>
 		<?php echo $this->Form->end();?>
-    </div>
+	</div>
 </div>

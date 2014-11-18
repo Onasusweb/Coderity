@@ -1,9 +1,13 @@
-<h1 class="page-header"><?php echo __('Add a Page');?></h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo __('Add a Page');?></h1>
+	</div>
+</div>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+	<div class="panel-heading">
 		<?php echo __('Page Details');?>
-    </div>
+	</div>
 	<div class="panel-body">
 		<?php echo $this->Form->create('Page');?>
 			<fieldset>
@@ -25,7 +29,7 @@
 					<div class="form-group">
 						<?php echo $this->Form->input('sub_title',
 													  array('label' => __('Sub-title'),
-													   		'class' => 'form-control')); ?>
+															'class' => 'form-control')); ?>
 					</div>
 				<?php endif; ?>
 				<?php if (Configure::read('Content.dropdowns')) : ?>
@@ -120,8 +124,8 @@
 				</div>
 			</fieldset>
 		<?php echo $this->Form->end();?>
-    </div>
-    <div class="panel-footer">
+	</div>
+	<div class="panel-footer">
 		<?php echo $this->Html->link(__('Back to pages'),
 									 array('action' => 'index'),
 									 array('class' => 'btn btn-default'));?>

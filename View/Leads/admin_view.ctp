@@ -1,12 +1,16 @@
-<h1 class="page-header"><?php echo __('Lead Details');?></h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo __('Lead Details');?></h1>
+	</div>
+</div>
 
 <div class="panel panel-default">
 	<?php $name = trim($lead['Lead']['name']); ?>
-    <div class="panel-heading">
+	<div class="panel-heading">
 		<?php if(!empty($name)) : ?>
 			<?php echo $lead['Lead']['name']; ?>
 		<?php endif; ?>
-    </div>
+	</div>
 	<div class="panel-body">
 	<?php echo $this->Form->create();?>
 		<dl class="dl-horizontal">
@@ -85,18 +89,18 @@
 				<?php
 					echo $this->Form->input('status',
 							array('div' => 'form-group input-group input-group-small',
-							  	  'label' => false,
-							  	  'class' => 'form-control',
-							  	  'value' => $lead['Lead']['status'],
-							  	  'after' => $this->Form->submit(__('Update Status'),
-							  	  								 array('div' => false,
-							  	  								 	   'class' => 'input-group-addon'))));
+								  'label' => false,
+								  'class' => 'form-control',
+								  'value' => $lead['Lead']['status'],
+								  'after' => $this->Form->submit(__('Update Status'),
+																 array('div' => false,
+																	   'class' => 'input-group-addon'))));
 				?>
 			<dd>
 		</dl>
 	<?php echo $this->Form->end();?>
-    </div>
-    <div class="panel-footer">
+	</div>
+	<div class="panel-footer">
 		<?php
 			echo $this->Html->link(__('Back to Leads'),
 								   array('action' => 'index'),
@@ -105,10 +109,10 @@
 		<?php
 			echo $this->Form->postLink(__('Delete this Lead'),
 									   array('action' => 'delete',
-									   		 $lead['Lead']['id'],
-									   		 true),
+											 $lead['Lead']['id'],
+											 true),
 									   array('confirm' => __('Are you sure you want to delete this lead?'),
-									   		 'class' => 'btn btn-danger'));
+											 'class' => 'btn btn-danger'));
 		?>
 	</div>
 </div>

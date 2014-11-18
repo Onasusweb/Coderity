@@ -1,9 +1,13 @@
-<h1 class="page-header"><?php echo __('Add a User'); ?></h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo __('Add a User'); ?></h1>
+	</div>
+</div>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+	<div class="panel-heading">
 		<?php echo __('User Details');?>
-    </div>
+	</div>
 	<div class="panel-body">
 		<?php
 			echo $this->Form->create();
@@ -31,9 +35,9 @@
 				</div>
 			</fieldset>
 		<?php echo $this->Form->end();?>
-    </div>
+	</div>
 
-    <div class="panel-footer">
+	<div class="panel-footer">
 		<?php echo $this->Html->link(__('Back to users'), array('action' => 'index'), array('class' => 'btn btn-default'));?>
 	</div>
 </div>

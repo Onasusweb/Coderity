@@ -10,14 +10,12 @@ App::uses('Controller', 'AppController');
 class CoderityAppController extends AppController {
 
 	public $components = array('Cookie', 'RequestHandler', 'Session', 'Paginator',
-							   'Auth' => array(
+								'Auth' => array(
 									'authorize'     => array('Controller'),
 									'loginRedirect' => array('plugin' => false, 'controller' => 'users', 'action' =>'home', 'admin' => true),
 									'loginAction'   => array('plugin' => false, 'controller' => 'users', 'action' =>'login', 'admin' => true),
 									'authenticate' => array('Form' => array('passwordHasher' => 'Blowfish'))
 								));
-
-	//public $uses = array('Coderity.Page');
 
 	public function beforeFilter() {
 		// Change the layout to admin if the prefix is admin

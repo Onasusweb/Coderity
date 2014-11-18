@@ -1,9 +1,13 @@
-<h1 class="page-header"><?php echo __('Edit Article');?></h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><?php echo __('Edit Article');?></h1>
+	</div>
+</div>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+	<div class="panel-heading">
 		<?php echo __('Article Details');?>
-    </div>
+	</div>
 	<div class="panel-body">
 		<?php echo $this->Form->create(); ?>
 			<fieldset>
@@ -41,8 +45,8 @@
 				</div>
 			</fieldset>
 		<?php echo $this->Form->end();?>
-    </div>
-    <div class="panel-footer">
+	</div>
+	<div class="panel-footer">
 		<?php echo $this->Html->link(__('Back to Articles'),
 									 array('action' => 'index'),
 									 array('class' => 'btn btn-default'));?>
