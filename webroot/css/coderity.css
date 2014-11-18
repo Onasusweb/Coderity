@@ -54,6 +54,7 @@ form .error-message {
 	padding: 5px;
 	min-height: 0px;
 }
-.navbar-top-links li a:hover {
+.navbar-top-links a:hover {
 	padding: 5px;
+	min-height: 0px;
 }
