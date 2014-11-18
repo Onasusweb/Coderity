@@ -27,3 +27,9 @@ form .error-message {
     box-shadow: none;
     text-shadow: none;
 }
+.check {
+    margin-left: 21px;
+}
+.check label {
+    margin-left: -20px;
+}

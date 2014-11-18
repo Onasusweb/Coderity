@@ -75,13 +75,13 @@
 						</div>
 					</div>
 					<?php //if (Configure::read('Content.topMenu')) : ?>
-						<div class="form-group">
+						<div class="checkbox check">
 							<?php echo $this->Form->input('top_show',
 														  array('label' => __('Show this page in the top menu?'))); ?>
 						</div>
 					<?php //endif; ?>
 					<?php //if (Configure::read('Content.bottomMenu')) : ?>
-						<div class="form-group">
+						<div class="checkbox check">
 							<?php echo $this->Form->input('bottom_show',
 														  array('label' => __('Show this page in the bottom menu?'))); ?>
 						</div>
@@ -135,7 +135,7 @@
 					<?php if (empty($page['Page']['element'])) : ?>
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="form-group">
+								<div class="checkbox check">
 									<?php echo $this->Form->input('make_homepage', array('label' => __('Make this page the home page'), 'type' => 'checkbox')); ?>
 								</div>
 							</div>
