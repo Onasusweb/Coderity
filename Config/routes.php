@@ -35,40 +35,26 @@
 /**
  * And some other rules for the Coderity Plugin
  */
-    //$controllers = array('articles', 'leads', 'settings', 'users');
-    //$controllers = array('users');
-/*
+    Router::connect('/article/*', array('plugin' => $plugin, 'controller' => 'articles', 'action' => 'view'));
+
+    $controllers = array('pages', 'users', 'articles', 'users', 'settings');
     foreach ($controllers as $controller) {
         Router::connect('/' . $controller, array('plugin' => $plugin, 'controller' => $controller));
-        Router::connect('/' . $controller . '/:action/*', array('action' => ':action', 'plugin' => $plugin));
-        Router::connect('/:prefix/' . $controller, array('plugin' => $plugin, 'controller' => $controller, 'prefix' => ':prefix'));
-        Router::connect('/:prefix/' . $controller . '/:action/*', array('plugin' => $plugin, 'controller' => $controller, 'prefix' => ':prefix'));
+        Router::connect('/' . $controller . '/:action', array('plugin' => $plugin, 'controller' => $controller, 'action' => ':action'));
+        Router::connect('/' . $controller . '/:action/*', array('plugin' => $plugin, 'controller' => $controller, 'action' => ':action'));
+
+        Router::connect('/admin/' . $controller, array('plugin' => $plugin, 'admin' => true, 'controller' => $controller));
+        Router::connect('/admin/' . $controller . '/:action', array('plugin' => $plugin, 'admin' => true, 'controller' => $controller, 'action' => ':action'));
+        Router::connect('/admin/' . $controller . '/:action/*', array('plugin' => $plugin, 'admin' => true, 'controller' => $controller, 'action' => ':action'));
     }
-*/
-
-// TODO - improve routing rules
-$controllers = array('pages', 'users', 'articles', 'users', 'settings');
-foreach ($controllers as $controller) {
-    Router::connect('/admin/' . $controller, array('plugin' => $plugin, 'admin' => true, 'controller' => $controller));
-    Router::connect('/admin/' . $controller . '/:action', array('plugin' => $plugin, 'admin' => true, 'controller' => $controller, 'action' => ':action'));
-    Router::connect('/admin/' . $controller . '/:action/*', array('plugin' => $plugin, 'admin' => true, 'controller' => $controller, 'action' => ':action'));
-}
-
-
-    //Router::connect('/blog', array('plugin' => 'Coderity', 'controller' => 'articles', 'action' => 'index'));
-    //Router::connect('/blog/*', array('plugin' => 'Coderity', 'controller' => 'articles', 'action' => 'index'));
-
-    //Router::connect('/article/*', array('plugin' => 'Coderity', 'controller' => 'articles', 'action' => 'view'));
 
 /**
  * This is an optional route - feel free to remove it if not required
  * It will automatically allow you to use /about rather than /page/about which can be useful
  * best used when their are not too many other controllers, as exceptions need to be made
 */
-/*
-    Router::connect('/:route', array('plugin' => 'Coderity', 'controller' => 'pages', 'action' => 'display'),
+    Router::connect('/:route', array('plugin' => $plugin, 'controller' => 'pages', 'action' => 'display'),
     array(
         'route' => '(?!add|view|display|delete|admin|users|leads|blog\b)\b[a-zA-Z0-9_-]+',
         'pass'=>array('route')
     ));
-*/

@@ -27,7 +27,7 @@ class ArticlesController extends CoderityAppController {
 		$this->paginate = array('limit' => 10, 'order' => $this->order, 'contain' => false);
 		$this->set('articles', $this->paginate());
 
-		$this->loadModel('Page');
+		$this->loadModel('Coderity.Page');
 		$page = $this->Page->findBySlug('blog');
 
 		if ($page) {

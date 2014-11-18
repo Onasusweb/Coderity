@@ -17,6 +17,8 @@ class CoderityAppController extends AppController {
                                     'authenticate' => array('Form' => array('passwordHasher' => 'Blowfish'))
                                 ));
 
+    //public $uses = array('Coderity.Page');
+
     public function beforeFilter() {
         // Change the layout to admin if the prefix is admin
         if (!empty($this->params['prefix']) && $this->params['prefix'] == 'admin') {
@@ -42,6 +44,15 @@ class CoderityAppController extends AppController {
                 $this->Session->write('Message.flash', $flash);
             }
         }
+
+        // lets load the menu for the front end
+        if (empty($this->params['prefix'])) {
+            $this->loadModel('Coderity.Page');
+            $topMenu    = $this->Page->menu(null, 'top');
+            $bottomMenu = $this->Page->menu(null, 'bottom');
+            $this->set(compact('topMenu', 'bottomMenu'));
+        }
+
     }
 
     public function isAuthorized($user) {

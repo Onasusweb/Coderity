@@ -10,7 +10,7 @@ How to Install
 
 3) In your app/Config/bootstrap.php file - at the bottom at the following line:
 
-   CakePlugin::load(array('Coderity' => array('routes' => true)));
+   CakePlugin::load(array('Coderity' => array('routes' => true, 'bootstrap' => true)));
 
 4) In app/Config/routes.php comment out the following two lines:
 
@@ -18,11 +18,17 @@ How to Install
 
    //Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
-5) In app/Config/core.php uncomment the following line:
-
-   Configure::write('Routing.prefixes', array('admin'));
-
-6) Open your Cake Application in your browser and you should see the home page.  Visit:
+5) Open your Cake Application in your browser and you should see the home page.  Visit:
    yourapplication.com/admin
 
-   To register as an admin user
+   To register an admin user and install Coderity
+
+6) Finally, by default your local app/View/Layouts/default.ctp file will load.
+   If this is a new application, you can delete this file, and Coderity will load a modified version of CakePHP's default view page, with the CMS menu working.
+   If this is an existing application, you can see how the top and bottom menu is loaded at: app/Plugin/Coderity/View/Layout/default.ctp
+
+   To load the top menu, simply insert:
+   <?php echo $this->element('Coderity.menu'); ?>
+
+   Or for the bottom menu insert:
+   <?php echo $this->element('Coderity.menu', array('type' => 'bottom')); ?>

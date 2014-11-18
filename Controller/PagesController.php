@@ -11,20 +11,8 @@ class PagesController extends CoderityAppController {
 		parent::beforeFilter();
 
 		if(!empty($this->Auth)) {
-			$this->Auth->allow('getpages', 'get', 'display');
+			$this->Auth->allow('display');
 		}
-	}
-
-	public function getpages($position = 'top', $allFields = false) {
-		if ($allFields) {
-			return $this->Page->getPages(null, $position);
-		}
-
-		return $this->Page->menu(null, $position);
-	}
-
-	public function get($slug = '') {
-		return $this->Page->find('first', array('conditions' => array('slug' => $slug), 'contain' => false));
 	}
 
     public function display($slug = null) {
