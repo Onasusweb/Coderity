@@ -54,9 +54,9 @@ class Page extends CoderityAppModel {
 		// Generating slug from page name
 		if (!empty($this->data['Page']['name']) && empty($this->data['Page']['slug']) && isset($this->data['Page']['slug'])) {
 			if (!empty($this->data['Page']['id'])) {
-				$this->data['Page']['slug'] = $this->makeSlug($this->data['Page']['name'], $this->data['Page']['id']);
+				$this->data['Page']['slug'] = $this->generateSlug($this->data['Page']['name'], $this->data['Page']['id']);
 			} else {
-				$this->data['Page']['slug'] = $this->makeSlug($this->data['Page']['name']);
+				$this->data['Page']['slug'] = $this->generateSlug($this->data['Page']['name']);
 			}
 		}
 
