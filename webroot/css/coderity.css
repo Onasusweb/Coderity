@@ -33,3 +33,27 @@ form .error-message {
 .check label {
     margin-left: -20px;
 }
+.sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 0px;
+}
+.page-header {
+  padding-bottom: 9px;
+  margin: 20px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+.navbar {
+  position: relative;
+  min-height: 30px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+.navbar-top-links li a {
+    padding: 5px;
+    min-height: 0px;
+}
+.navbar-top-links li a:hover {
+    padding: 5px;
+}

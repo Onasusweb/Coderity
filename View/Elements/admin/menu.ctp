@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <?php echo $this->Html->link(__('Coderity CMS'), array('controller' => 'users', 'action' => 'home'), array('class' => 'navbar-brand')); ?>
+        
     </div>
     <!-- /.navbar-header -->
 
@@ -35,6 +35,9 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
+            <li>
+            <?php echo $this->Html->image('Coderity.logo.png', array('url' => array('controller' => 'users', 'action' => 'home')), array('class' => 'navbar-brand')); ?>
+            </li>
                 <li>
                     <?php echo $this->Html->link('<i class="fa fa-dashboard fa-fw"></i> ' . __('Home'), array('plugin' => false, 'controller' => 'users', 'action' => 'home'), array('escape' => false)); ?>
                 </li>
