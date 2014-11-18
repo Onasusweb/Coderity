@@ -41,8 +41,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
 
-		<div id="menu">
-			<?php echo $this->element('Coderity.menu'); ?>
+		<div class="menuhead" id="menu">
+				<?php echo $this->element('Coderity.menu'); ?>
 		</div>
 
 		<div id="content">
@@ -53,19 +53,20 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 		</div>
 		<div id="footer">
 			<?php echo $this->element('Coderity.menu', array('type' => 'bottom')); ?>
-
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
+			<div class="menubottom">
+					<?php echo $this->Html->link($this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
 					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?> -
+						);
+					?>
+				<div class="left">
+				<?php echo $cakeVersion; ?>
+				</div>
+				<div class="center">
 				<?php echo $this->Html->link(__('Powered by Coderity.com'), 'http://www.coderity.com', array('target' => '_blank')); ?>
-			</p>
+				</div>
+			</div>
 		</div>
-	</div>
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
