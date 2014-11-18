@@ -5,9 +5,9 @@
  * @property Pages $Pages
  */
 class PagesController extends CoderityAppController {
-    public $helpers = array('Coderity.Ck');
+	public $helpers = array('Coderity.Ck');
 
-    public function beforeFilter(){
+	public function beforeFilter(){
 		parent::beforeFilter();
 
 		if(!empty($this->Auth)) {
@@ -15,7 +15,7 @@ class PagesController extends CoderityAppController {
 		}
 	}
 
-    public function display($slug = null) {
+	public function display($slug = null) {
 		if (!$slug) {
 			throw new NotFoundException(__('Invalid page'));
 		}
@@ -23,25 +23,25 @@ class PagesController extends CoderityAppController {
 		$page = $this->Page->findBySlug($slug);
 
 		if (!$page) {
-            throw new NotFoundException(__('Invalid page'));
-        }
+			throw new NotFoundException(__('Invalid page'));
+		}
 
-        if (!empty($page['Page']['view']) && $page['Page']['view'] == 'contact' && $this->request->is('post')) {
-        	try {
-	           	$this->loadModel('Lead');
-	            $this->Lead->saveLead($this->request->data, 'contact');
+		if (!empty($page['Page']['view']) && $page['Page']['view'] == 'contact' && $this->request->is('post')) {
+			try {
+				$this->loadModel('Lead');
+				$this->Lead->saveLead($this->request->data, 'contact');
 
-	            $this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
+				$this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
 				$this->redirect($this->referer(array('action'=>'display', $slug)));
-	        } catch (Exception $e) {
-	            $this->Session->setFlash($e->getMessage());
-	        }
-        }
+			} catch (Exception $e) {
+				$this->Session->setFlash($e->getMessage());
+			}
+		}
 
 		$this->set('page', $page);
 
 		$this->set('title_for_layout', $page['Page']['meta_title']);
-        if (!empty($page['Page']['meta_description'])) {
+		if (!empty($page['Page']['meta_description'])) {
 			$this->set('meta_description', $page['Page']['meta_description']);
 		}
 		if (!empty($page['Page']['meta_keywords'])) {
@@ -116,8 +116,8 @@ class PagesController extends CoderityAppController {
 
 		$page = $this->Page->findById($id);
 		if (!$page) {
-        	throw new NotFoundException(__('Invalid page'));
-    	}
+			throw new NotFoundException(__('Invalid page'));
+		}
 
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Page->save($this->request->data)) {
@@ -192,8 +192,8 @@ class PagesController extends CoderityAppController {
 
 	public function admin_delete($id = null) {
 		if ($this->request->is('get')) {
-        	throw new MethodNotAllowedException();
-    	}
+			throw new MethodNotAllowedException();
+		}
 
 		if (!$id) {
 			throw new NotFoundException(__('Invalid page'));

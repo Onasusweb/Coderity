@@ -52,8 +52,8 @@ class UsersController extends CoderityAppController {
 		}
 
 		if ($this->request->is('post')) {
-            $this->User->create();
-            if ($this->User->save($this->request->data)) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
 				if ($this->Auth->login()) {
 					// lets set a cookie for the KC finder plugin - used to check a valid user
 					$this->Cookie->write('User.id', $this->Auth->user('id'), true, '+6 hours');
@@ -78,13 +78,13 @@ class UsersController extends CoderityAppController {
 	public function admin_reset(){
 		if ($this->request->is('post')) {
 			try {
-	            $this->User->reset($this->request->data);
+				$this->User->reset($this->request->data);
 
-	            $this->Session->setFlash(__('Please check your account.  An email containing your account details has been sent to you.'));
+				$this->Session->setFlash(__('Please check your account.  An email containing your account details has been sent to you.'));
 				$this->redirect(array('action'=>'login'));
-	        } catch (Exception $e) {
-	            $this->Session->setFlash($e->getMessage());
-	        }
+			} catch (Exception $e) {
+				$this->Session->setFlash($e->getMessage());
+			}
 		}
 
 		$this->set('title_for_layout', __('Reset your Password'));
@@ -111,8 +111,8 @@ class UsersController extends CoderityAppController {
 
 	public function admin_add() {
 		if ($this->request->is('post')) {
-            $this->User->create();
-            if ($this->User->save($this->request->data)) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('There user has been created successfully.'));
 				$this->redirect(array('action'=>'index'));
 			} else {
@@ -133,7 +133,7 @@ class UsersController extends CoderityAppController {
 		}
 
 		if ($this->request->is(array('put', 'post'))) {
-            if ($this->User->save($this->request->data)) {
+			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been updated successfully.'));
 				$this->redirect(array('action'=>'index'));
 			} else {
@@ -161,9 +161,9 @@ class UsersController extends CoderityAppController {
 	public function admin_delete($id = null) {
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
-    	}
+		}
 
-    	$user = $this->User->findById($id);
+		$user = $this->User->findById($id);
 		if(!$user) {
 			throw new NotFoundException(__('Invalid user'));
 		}

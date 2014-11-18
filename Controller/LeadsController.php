@@ -6,7 +6,7 @@
  */
 class LeadsController extends CoderityAppController {
 
-    public function admin_index($search = null) {
+	public function admin_index($search = null) {
 		if (!empty($this->request->data['Lead']['search'])) {
 			$this->redirect(array($this->request->data['Lead']['search']));
 		} elseif(!empty($search)) {
@@ -29,8 +29,8 @@ class LeadsController extends CoderityAppController {
 		$lead = $this->Lead->findById($id);
 
 		if (!$lead) {
-            throw new NotFoundException(__('Invalid lead'));
-        }
+			throw new NotFoundException(__('Invalid lead'));
+		}
 
 		if($this->request->is('post')) {
 			$this->request->data['Lead']['id'] = $id;
@@ -45,20 +45,20 @@ class LeadsController extends CoderityAppController {
 
 	public function admin_delete($id = null, $noReferer = false) {
 		if ($this->request->is('get')) {
-	        throw new MethodNotAllowedException();
-	    }
+			throw new MethodNotAllowedException();
+		}
 
-	    if (!$id) {
+		if (!$id) {
 			throw new NotFoundException(__('Invalid lead'));
 		}
 
-	    if ($this->Lead->delete($id)) {
-	        $this->Session->setFlash(__('The lead was deleted successfully.'));
-	    } else {
-	    	$this->Session->setFlash(__('There was a problem deleting this lead.'), 'error');
-	    }
+		if ($this->Lead->delete($id)) {
+			$this->Session->setFlash(__('The lead was deleted successfully.'));
+		} else {
+			$this->Session->setFlash(__('There was a problem deleting this lead.'), 'error');
+		}
 
-	    if ($noReferer == true) {
+		if ($noReferer == true) {
 			$this->redirect(array('action' => 'index'));
 		} else {
 			$this->redirect($this->referer(array('action' => 'index')));

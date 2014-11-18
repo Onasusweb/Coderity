@@ -34,7 +34,7 @@ class ArticlesController extends CoderityAppController {
 			$this->set('page', $page);
 
 			$this->set('title_for_layout', $page['Page']['meta_title']);
-	        if (!empty($page['Page']['meta_description'])) {
+			if (!empty($page['Page']['meta_description'])) {
 				$this->set('meta_description', $page['Page']['meta_description']);
 			}
 			if (!empty($page['Page']['meta_keywords'])) {
@@ -65,7 +65,7 @@ class ArticlesController extends CoderityAppController {
 		$this->set(compact('article'));
 
 		$this->set('title_for_layout', $article['Article']['title']);
-        if (!empty($article['Article']['meta_description'])) {
+		if (!empty($article['Article']['meta_description'])) {
 			$this->set('meta_description', $article['Article']['meta_description']);
 		}
 		if (!empty($article['Article']['meta_keywords'])) {
