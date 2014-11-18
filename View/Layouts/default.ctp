@@ -41,7 +41,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
 
-		<div class="menuhead" id="menu">
+		<div class="menu-head" id="menu">
 				<?php echo $this->element('Coderity.menu'); ?>
 		</div>
 
@@ -53,7 +53,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 		</div>
 		<div id="footer">
 			<?php echo $this->element('Coderity.menu', array('type' => 'bottom')); ?>
-			<div class="menubottom">
+			<div class="menu-bottom">
 					<?php echo $this->Html->link($this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
 					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
