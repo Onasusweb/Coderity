@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModel', 'CoderityAppModel');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends CoderityAppModel {
@@ -30,9 +30,9 @@ class User extends CoderityAppModel {
 				'rule' => 'notEmpty',
 				'message' => 'Please enter in your old password.'
 			),
-			'oldPass' => array(
+			'checkPassword' => array(
 				'rule' => 'checkPassword',
-				'message' => 'The old password you entered is incorrect.'
+				'message' => 'The password you entered is incorrect.'
 			)
 		),
 		'password' => array(
@@ -151,7 +151,7 @@ class User extends CoderityAppModel {
  * @param array $data The users data
  * @return booleen true is it matches, false otherwise
  */
-	function checkPassword($check) {
+	public function checkPassword($check) {
 		$value = array_shift($check);
 
 		if (strlen($value) == 0) {

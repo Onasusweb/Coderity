@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModel', 'CoderityAppModel');
 
 class Page extends CoderityAppModel {
 

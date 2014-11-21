@@ -1,4 +1,5 @@
 <?php
+App::uses('Controller', 'CoderityAppController');
 /**
  * Pages Controller
  *

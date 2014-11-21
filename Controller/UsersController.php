@@ -1,10 +1,10 @@
 <?php
+App::uses('Controller', 'CoderityAppController');
 /**
  * Users Controller
  *
  * @property Users $Users
  */
-
 class UsersController extends CoderityAppController {
 
 	public function beforeFilter(){

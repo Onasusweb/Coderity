@@ -1,12 +1,10 @@
 <?php
+App::uses('Controller', 'AppController');
 /**
  * CoderityApp Controller
  *
  * @property CoderityApp $CoderityApp
  */
-
-App::uses('Controller', 'AppController');
-
 class CoderityAppController extends AppController {
 
 	public $components = array('Cookie', 'RequestHandler', 'Session', 'Paginator',
