@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'CoderityAppModel');
+App::uses('Model', 'CoderityAppModel');
 /**
  * Setting Model
  *
