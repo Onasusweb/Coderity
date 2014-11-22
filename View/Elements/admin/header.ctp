@@ -17,7 +17,11 @@
 
 		echo $this->Html->css($css);
 
-		echo $this->Html->script('Coderity.ckeditor/ckeditor');
+		$js = array('Coderity.jquery',
+					'Coderity.jquery-ui',
+					'Coderity.ckeditor/ckeditor');
+
+		echo $this->Html->script($js);
 	?>
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

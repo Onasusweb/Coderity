@@ -56,7 +56,7 @@
 				<i class="fa fa-info-circle"></i>
 				<?php echo __('To change the order that the pages are displayed, drag and drop the ordering by clicking and draging on the table below.');?>
 			</div>
-			<div id="orderMessageTop" class="success" style="display: none"></div>
+			<div id="orderMessageTop" class="alert alert-success" style="display: none"></div>
 			<div class="table-responsive">
 				<table id="pageListTop" class="table table-striped table-hover dataTable" summary="<?php __('List of Top Menu Pages'); ?>">
 					<tr>
@@ -183,7 +183,7 @@
 				<i class="fa fa-info-circle"></i>
 				<?php echo __('To change the order that the pages are displayed, drag and drop the ordering by clicking and draging on the table below.');?>
 			</div>
-			<div id="orderMessageBottom" class="message" style="display: none"></div>
+			<div id="orderMessageBottom" class="alert alert-success" style="display: none"></div>
 			<div class="table-responsive">
 				<table id="pageListBottom" class="table table-striped table-hover dataTable" summary="<?php __('List of Bottom Menu Pages'); ?>">
 					<tr>
@@ -505,7 +505,7 @@
 </div>
 
 <script type="text/javascript">
-	<?php if(Configure::read('Content.topMenu')) : ?>
+	<?php //if(Configure::read('Content.topMenu')) : ?>
 		$('#pageListTop').sortable({
 			'axis': 'y',
 			'items': 'tr.sortable_top',
@@ -521,9 +521,9 @@
 				});
 			}
 		});
-	<?php endif; ?>
+	<?php //endif; ?>
 
-	<?php if(Configure::read('Content.bottomMenu')) : ?>
+	<?php //if(Configure::read('Content.bottomMenu')) : ?>
 		$('#pageListBottom').sortable({
 			'axis': 'y',
 			'items': 'tr.sortable_bottom',
@@ -539,5 +539,5 @@
 				});
 			}
 		});
-	<?php endif; ?>
+	<?php //endif; ?>
 </script>

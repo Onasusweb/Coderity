@@ -1,1 +1,1 @@
-<?php echo $message;?>
+<i class="fa fa-info-circle"></i> <?php echo $message;?>
