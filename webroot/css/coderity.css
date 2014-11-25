@@ -58,3 +58,6 @@ form .error-message {
 	padding: 5px;
 	min-height: 0px;
 }
+.sign-in {
+	text-align: center;
+}
