@@ -1,5 +1,5 @@
 <?php
-App::uses('CoderityAppModel', 'Model');
+App::uses('CoderityAppModel', 'Coderity.Model');
 
 class Lead extends CoderityAppModel {
 

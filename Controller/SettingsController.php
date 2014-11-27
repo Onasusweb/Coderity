@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('CoderityAppController', 'Coderity.Controller');
 /**
  * Settings Controller
  *
