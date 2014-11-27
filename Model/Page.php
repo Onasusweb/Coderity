@@ -1,5 +1,5 @@
 <?php
-App::uses('Model', 'CoderityAppModel');
+App::uses('CoderityAppModel', 'Model');
 
 class Page extends CoderityAppModel {
 
@@ -127,7 +127,7 @@ class Page extends CoderityAppModel {
 		$menus = array();
 
 		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class');
-		$pages = $this->find('all', array('conditions' => array('Page.'.$position.'_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.'.$position.'_order', 'contain' => false, 'fields' => $fields));
+		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
 
 		if (!empty($pages)) {
 			foreach ($pages as $key => $page) {
@@ -136,13 +136,14 @@ class Page extends CoderityAppModel {
 				if (!empty($page['Page']['route'])) {
 					$menu['url'] = $page['Page']['route'];
 				} else {
-					$menu['url'] = '/'.$page['Page']['slug'];
+					$menu['url'] = '/' . $page['Page']['slug'];
 				}
 
-				if (Configure::read('Content.dropdowns')) {
+				// future to do - add in dropdowns
+				//if (Configure::read('Content.dropdowns')) {
 					// lets get the children
-					$menu['children'] = $this->menu($page['Page']['id'], $position);
-				}
+					//$menu['children'] = $this->menu($page['Page']['id'], $position);
+				//}
 
 				$menus[] = $menu;
 			}

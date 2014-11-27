@@ -1,5 +1,5 @@
 <?php
-App::uses('Model', 'CoderityAppModel');
+App::uses('CoderityAppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends CoderityAppModel {

@@ -1,5 +1,5 @@
 <?php
-App::uses('Controller', 'CoderityAppController');
+App::uses('AppController', 'Controller');
 /**
  * Pages Controller
  *

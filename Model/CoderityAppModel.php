@@ -1,5 +1,5 @@
 <?php
-App::uses('Model', 'AppModel');
+App::uses('AppModel', 'Model');
 
 class CoderityAppModel extends AppModel {
 	public $actsAs = array('Containable');

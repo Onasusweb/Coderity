@@ -29,8 +29,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'colors' }
 	];
 
-	config.contentsCss = '/coderity/css/ck.css';
-
 	config.allowedContent = true;
 
 	config.fillEmptyBlocks = false;
