@@ -8,6 +8,9 @@ How to Install
 2) Dump the following SQL file into your database:
    app/Plugin/Coderity/Config/Schema/schema.sql
 
+   The easiest way to do this, is in your terminal / command line, go to your app/Plugin directory and run the following command:
+   git submodule add https://github.com/coderity/Coderity.git
+
 3) In your app/Config/bootstrap.php file - at the bottom at the following line:
 
    CakePlugin::load(array('Coderity' => array('routes' => true, 'bootstrap' => true)));
