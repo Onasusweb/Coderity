@@ -111,7 +111,13 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `name`, `value`, `modified`) VALUES
-(1, 'google_analytics', '', '2014-10-08 18:08:01');
+(NULL, 'site_name', '', NULL);
+
+INSERT INTO `settings` (`id`, `name`, `value`, `modified`) VALUES
+(NULL, 'site_email', '', NULL);
+
+INSERT INTO `settings` (`id`, `name`, `value`, `modified`) VALUES
+(NULL, 'google_analytics', '', NULL);
 
 -- --------------------------------------------------------
 

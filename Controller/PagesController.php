@@ -27,10 +27,9 @@ class PagesController extends CoderityAppController {
 			throw new NotFoundException(__('Invalid page'));
 		}
 
-		if (!empty($page['Page']['view']) && $page['Page']['view'] == 'contact' && $this->request->is('post')) {
+		if (!empty($page['Page']['view']) && $this->request->is('post')) {
 			try {
-				$this->loadModel('Lead');
-				$this->Lead->saveLead($this->request->data, 'contact');
+				ClassRegistry::init('Coderity.Lead')->saveLead($this->request->data, $page['Page']['view']);
 
 				$this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
 				$this->redirect($this->referer(array('action'=>'display', $slug)));

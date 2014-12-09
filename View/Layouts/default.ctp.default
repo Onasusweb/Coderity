@@ -42,11 +42,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 		</div>
 
 		<div class="menu-head" id="menu">
-				<?php echo $this->element('Coderity.menu'); ?>
+			<?php echo $this->element('Coderity.menu'); ?>
 		</div>
 
 		<div id="content">
-
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>

@@ -11,7 +11,6 @@
 	<div class="row">
 		<div class="box">
 			<div class="col-lg-12">
-				<?php echo $this->element('element', array('slug' => 'contactForm')); ?>
 				<?php echo $this->Form->create('Lead', array('role' => 'form')); ?>
 					<div class="row">
 						<?php
