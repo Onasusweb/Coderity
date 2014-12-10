@@ -120,10 +120,7 @@
 								<?php endif; ?>
 							</div>
 						</div>
-						<?php
-							if (empty($page['Page']['element'])
-								&& Configure::read('Content.pageView')) :
-						?>
+						<?php if (empty($page['Page']['element'])) : ?>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<?php
