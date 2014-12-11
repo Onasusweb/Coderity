@@ -80,7 +80,7 @@ class Lead extends CoderityAppModel {
 			$email->subject(__('%s - The %s form has been submitted', $siteName, $result['Lead']['type']));
 			$email->template('Coderity.newLead');
 			$email->emailFormat('both');
-			$email->viewVars(array('lead' => $result));
+			$email->viewVars(array('lead' => $result, 'siteName' => $siteName));
 			$email->send();
 		}
 

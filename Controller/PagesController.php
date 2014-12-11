@@ -29,7 +29,11 @@ class PagesController extends CoderityAppController {
 
 		if (!empty($page['Page']['view']) && $this->request->is('post')) {
 			try {
-				ClassRegistry::init('Coderity.Lead')->saveLead($this->request->data, $page['Page']['view']);
+				$model = 'Coderity.Lead';
+				if (file_exists(APP . 'Model' . DS . 'Lead.php')) {
+					$model = 'Lead';
+				}
+				ClassRegistry::init($model)->saveLead($this->request->data, $page['Page']['view']);
 
 				$this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
 				$this->redirect($this->referer(array('action'=>'display', $slug)));

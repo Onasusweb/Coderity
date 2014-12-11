@@ -1,7 +1,7 @@
-<?php echo __('Hi %s,', Configure::read('Config.name'));?>
+<?php echo __('Hi %s,', $siteName);?>
 
 
-<?php echo __('The %s form has been submitted at %s.', $lead['Lead']['type'], Configure::read('Config.name'));?>
+<?php echo __('The %s form has been submitted at %s.', $lead['Lead']['type'], $siteName);?>
 
 
 <?php echo __('The details are:');?>
