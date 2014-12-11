@@ -46,10 +46,10 @@ class PagesController extends CoderityAppController {
 
 		$this->set('title_for_layout', $page['Page']['meta_title']);
 		if (!empty($page['Page']['meta_description'])) {
-			$this->set('meta_description', $page['Page']['meta_description']);
+			$this->set('metaDescription', $page['Page']['meta_description']);
 		}
 		if (!empty($page['Page']['meta_keywords'])) {
-			$this->set('meta_keywords', $page['Page']['meta_keywords']);
+			$this->set('metaKeywords', $page['Page']['meta_keywords']);
 		}
 		if (!empty($page['Page']['view'])) {
 			$this->render($page['Page']['view']);
