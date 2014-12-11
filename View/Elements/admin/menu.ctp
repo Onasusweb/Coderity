@@ -13,7 +13,7 @@
 
 	<ul class="nav navbar-top-links navbar-right">
 		<li>
-		<?php echo $this->Html->link('<i class="fa fa-file-picture-o fa-fw"></i> ' . __('View Site'), $this->Html->url('/'), array('target' => '_blank', 'escape' => false)); ?>
+		<?php echo $this->Html->link('<i class="fa fa-file-picture-o fa-fw"></i> ' . __('View Site'), '/', array('target' => '_blank', 'escape' => false)); ?>
 		</li>
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
