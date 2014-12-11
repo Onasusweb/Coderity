@@ -24,7 +24,7 @@ class CoderityAppController extends AppController {
 				$this->theme = Configure::read('Config.adminTheme');
 			}
 
-			$this->layout = 'admin';
+			$this->layout = 'Coderity.admin';
 		} elseif (Configure::read('Config.theme')) { // lets see if we are using a theme
 			$this->theme = Configure::read('Config.theme');
 		}
