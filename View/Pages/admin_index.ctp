@@ -512,7 +512,7 @@
 			'opacity': 50,
 			update: function(){
 				$.ajax({
-					url: '/admin/pages/save/top',
+					url: '<?php echo $this->Html->url(array('action' => 'save', 'top')); ?>',
 					type: 'POST',
 					data: $(this).sortable('serialize'),
 					success: function(data){
@@ -530,7 +530,7 @@
 			'opacity': 50,
 			update: function(){
 				$.ajax({
-					url: '/admin/pages/save/bottom',
+					url: '<?php echo $this->Html->url(array('action' => 'save', 'bottom')); ?>',
 					type: 'POST',
 					data: $(this).sortable('serialize'),
 					success: function(data){

@@ -152,19 +152,16 @@ class PagesController extends CoderityAppController {
 		$this->layout = false;
 		$message = '';
 
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			$data = $_POST;
 
-			foreach($data['page'] as $order => $id){
+			foreach ($data['page'] as $order => $id) {
 				// lets get the old modified date to ensure that it isn't updated
 				$page = $this->Page->findById($id, array('id', 'modified'));
 
-				if(!empty($page)) {
-					$page['Page'][$position.'_show']  = 1;
-					$page['Page'][$position.'_order'] = $order;
-
-					// lets not create a revision
-					$page['Page']['noRevision']  = true;
+				if (!empty($page)) {
+					$page['Page'][$position . '_show']  = 1;
+					$page['Page'][$position . '_order'] = $order;
 
 					$this->Page->save($page);
 				}
