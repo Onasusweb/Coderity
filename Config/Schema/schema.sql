@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `redirects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
   `redirect` varchar(255) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
+  `created` datetime NULL,
+  `modified` datetime NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -162,13 +162,13 @@ CREATE TABLE IF NOT EXISTS `redirects` (
 --
 
 INSERT INTO `redirects` (`id`, `url`, `redirect`, `created`, `modified`) VALUES
-(1, 'index.html', '', '2012-10-15 22:24:36', '2012-10-15 22:24:36'),
-(2, 'index.htm', '', '2012-10-15 22:24:50', '2012-10-15 22:24:50'),
-(3, 'default.html', '', '2012-10-15 22:24:57', '2012-10-15 22:24:57'),
-(4, 'default.htm', '', '2012-10-15 22:25:06', '2013-07-06 17:00:53'),
-(5, 'index.php', '', '2012-10-15 22:25:27', '2012-10-15 22:25:27'),
-(6, 'index.shtml', '', '2012-10-15 22:26:53', '2012-10-15 22:26:53'),
-(7, 'index.asp', '', '2012-10-15 22:27:14', '2012-10-15 22:27:14'),
-(8, 'default.asp', '', '2012-10-15 22:27:30', '2012-10-15 22:27:30'),
-(10, 'index.cfm', '', '2012-10-15 22:27:57', '2012-10-15 22:27:57'),
-(11, 'index.pl', '', '2012-10-15 22:28:10', '2012-10-15 22:28:10');
+(1, 'index.html', '', NULL, NULL),
+(2, 'index.htm', '', NULL, NULL),
+(3, 'default.html', '', NULL, NULL),
+(4, 'default.htm', '', NULL, NULL),
+(5, 'index.php', '', NULL, NULL),
+(6, 'index.shtml', '', NULL, NULL),
+(7, 'index.asp', '', NULL, NULL),
+(8, 'default.asp', '', NULL, NULL),
+(10, 'index.cfm', '', NULL, NULL),
+(11, 'index.pl', '', NULL, NULL);
