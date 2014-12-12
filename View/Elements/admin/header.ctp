@@ -18,8 +18,7 @@
 		echo $this->Html->css($css);
 
 		$js = array('Coderity.jquery',
-					'Coderity.jquery-ui',
-					'Coderity.ckeditor/ckeditor');
+					'Coderity.jquery-ui');
 
 		echo $this->Html->script($js);
 	?>

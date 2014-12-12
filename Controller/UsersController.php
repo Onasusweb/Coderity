@@ -29,9 +29,6 @@ class UsersController extends CoderityAppController {
 
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
-				// lets set a cookie for the KC finder plugin - used to check a valid user
-				$this->Cookie->write('User.id', $this->Auth->user('id'), true, '+6 hours');
-
 				$this->Session->setFlash(__('You have been successfully logged in.'));
 				$this->redirect(array('action' => 'home'));
 			} else {
