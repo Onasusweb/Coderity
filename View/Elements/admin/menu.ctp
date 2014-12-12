@@ -53,7 +53,15 @@
 				</li>
 
 				<li>
+					<?php echo $this->Html->link('<i class="fa fa-star-o fa-fw"></i> ' . __('Leads'), array('plugin' => false, 'controller' => 'leads', 'action' => 'index'), array('escape' => false)); ?>
+				</li>
+
+				<li>
 					<?php echo $this->Html->link('<i class="fa fa-users fa-fw"></i> ' . __('Admin Users'), array('plugin' => false, 'controller' => 'users', 'action' => 'index'), array('escape' => false)); ?>
+				</li>
+
+				<li>
+					<?php echo $this->Html->link('<i class="fa fa-exchange fa-fw"></i> ' . __('Redirects'), array('plugin' => false, 'controller' => 'redirects', 'action' => 'index'), array('escape' => false)); ?>
 				</li>
 
 				<li>

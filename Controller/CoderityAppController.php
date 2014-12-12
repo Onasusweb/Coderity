@@ -18,6 +18,8 @@ class CoderityAppController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
+		$this->handleRedirects();
+
 		// Change the layout to admin if the prefix is admin
 		if (!empty($this->params['prefix']) && $this->params['prefix'] == 'admin') {
 			if (Configure::read('Config.adminTheme')) {
@@ -62,5 +64,21 @@ class CoderityAppController extends AppController {
 		}
 
 		return true;
+	}
+
+	protected function handleRedirects() {
+		$here = trim($this->here, '/');
+	    if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
+			$here .= '?' . $_SERVER['REDIRECT_QUERY_STRING'];
+		}
+
+		$this->loadModel('Coderity.Redirect');
+		$redirect = $this->Redirect->getRedirect($here);
+
+		if ($redirect) {
+			return $this->redirect($redirect, 301);
+		}
+
+		return false;
 	}
 }

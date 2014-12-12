@@ -165,7 +165,7 @@ class UsersController extends CoderityAppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 
-		if($user['User']['id'] == $this->Auth->user('id')){
+		if ($user['User']['id'] == $this->Auth->user('id')){
 			throw new NotFoundException(__('You cannot delete your own user'));
 		}
 

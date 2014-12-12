@@ -142,3 +142,33 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 ALTER TABLE `pages` CHANGE `route` `route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
+
+
+--
+-- Table structure for table `redirects`
+--
+
+CREATE TABLE IF NOT EXISTS `redirects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) NOT NULL,
+  `redirect` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `redirects`
+--
+
+INSERT INTO `redirects` (`id`, `url`, `redirect`, `created`, `modified`) VALUES
+(1, 'index.html', '', '2012-10-15 22:24:36', '2012-10-15 22:24:36'),
+(2, 'index.htm', '', '2012-10-15 22:24:50', '2012-10-15 22:24:50'),
+(3, 'default.html', '', '2012-10-15 22:24:57', '2012-10-15 22:24:57'),
+(4, 'default.htm', '', '2012-10-15 22:25:06', '2013-07-06 17:00:53'),
+(5, 'index.php', '', '2012-10-15 22:25:27', '2012-10-15 22:25:27'),
+(6, 'index.shtml', '', '2012-10-15 22:26:53', '2012-10-15 22:26:53'),
+(7, 'index.asp', '', '2012-10-15 22:27:14', '2012-10-15 22:27:14'),
+(8, 'default.asp', '', '2012-10-15 22:27:30', '2012-10-15 22:27:30'),
+(10, 'index.cfm', '', '2012-10-15 22:27:57', '2012-10-15 22:27:57'),
+(11, 'index.pl', '', '2012-10-15 22:28:10', '2012-10-15 22:28:10');
