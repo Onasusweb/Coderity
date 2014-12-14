@@ -35,6 +35,8 @@ class Setting extends CoderityAppModel {
 			throw new NotFoundException('No name found');
 		}
 
+		$name = Inflector::underscore($name);
+
 		$this->contain();
 		$setting = $this->findByName($name);
 

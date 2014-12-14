@@ -13,7 +13,7 @@
 					<?php echo $this->Form->create('User', array('action' => 'reset'));?>
 					<div class="form-group">
 						<?php
-							echo $this->Form->input('Email',
+							echo $this->Form->input('email',
 													array('placeholder' => __('Enter Your Email'),
 														  'label' => false,
 														  'class' => 'form-control',

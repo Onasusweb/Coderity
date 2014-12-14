@@ -35,6 +35,8 @@ class Redirect extends CoderityAppModel {
 			return $redirect['Redirect']['redirect'];
 		} elseif(substr($redirect['Redirect']['redirect'], 0, 7) == 'http://') {
 			return $redirect['Redirect']['redirect'];
+		} elseif(substr($redirect['Redirect']['redirect'], 0, 8) == 'https://') {
+			return $redirect['Redirect']['redirect'];
 		} elseif(substr($redirect['Redirect']['redirect'], 0, 4) == 'www.') {
 			return 'http://' . $redirect['Redirect']['redirect'];
 		} else {

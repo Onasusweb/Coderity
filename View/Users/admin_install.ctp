@@ -20,12 +20,6 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<?php
-								echo $this->Form->input('username',
-														array('class' => 'form-control'));
-							?>
-						</div>
-						<div class="form-group">
-							<?php
 								echo $this->Form->input('first_name',
 														array('class' => 'form-control'));
 							?>
@@ -36,8 +30,20 @@
 														array('class' => 'form-control'));
 							?>
 						</div>
+						<div class="form-group">
+							<?php
+								echo $this->Form->input('email',
+														array('class' => 'form-control'));
+							?>
+						</div>
 					</div>
 					<div class="col-lg-6">
+						<div class="form-group">
+							<?php
+								echo $this->Form->input('username',
+														array('class' => 'form-control'));
+							?>
+						</div>
 						<div class="form-group">
 							<?php
 								echo $this->Form->input('password',
@@ -49,12 +55,6 @@
 								echo $this->Form->input('retype_password',
 														array('type'  => 'password',
 															  'class' => 'form-control'));
-							?>
-						</div>
-						<div class="form-group">
-							<?php
-								echo $this->Form->input('email',
-														array('class' => 'form-control'));
 							?>
 						</div>
 					</div>

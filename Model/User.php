@@ -96,7 +96,7 @@ class User extends CoderityAppModel {
  * @param array $data Data containing user information which will be verified
  * @return mixed User and email parameter array if success, false otherwise
  */
-	public function reset($data, $newPasswordLength = 8) {
+	public function reset($data = array(), $newPasswordLength = 8) {
 		if (!$data || empty($data['User'])) {
 			throw new NotFoundException(__('Invalid Data'));
 		}
@@ -105,7 +105,7 @@ class User extends CoderityAppModel {
 		$conditions = array();
 
 		foreach ($data['User'] as $key => $datum) {
-			if($this->hasField($key)){
+			if ($this->hasField($key)){
 				$conditions[$key] = $datum;
 			}
 		}
