@@ -71,7 +71,7 @@ class Redirect extends CoderityAppModel {
 				continue;
 			}
 			$create = array();
-			$create['Redirect']['url']      = $url;
+			$create['Redirect']['url']      = trim($url);
 			$create['Redirect']['redirect'] = $data['Redirect']['redirect'];
 
 			$this->create();
