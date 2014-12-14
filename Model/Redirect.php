@@ -26,7 +26,7 @@ class Redirect extends CoderityAppModel {
 			return false;
 		}
 
-		$redirect = $this->find('first', array('conditions' => array('Redirect.url LIKE ' => $url), 'fields' => 'redirect'));
+		$redirect = $this->find('first', array('conditions' => array('Redirect.url LIKE' => $url), 'fields' => 'redirect'));
 
 		if (!$redirect) {
 			return false;
