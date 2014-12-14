@@ -25,7 +25,7 @@ class RedirectsController extends CoderityAppController {
 	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Redirect->create();
-			if ($this->Redirect->save($this->request->data)) {
+			if ($this->Redirect->saveMultiple($this->request->data)) {
 				$this->Session->setFlash(__('There redirect has been created successfully.'));
 				$this->redirect(array('action'=>'index'));
 			} else {

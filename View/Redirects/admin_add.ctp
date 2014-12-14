@@ -16,7 +16,7 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<?php
-							echo $this->Form->input('url', array('div' => 'form-group', 'class' => 'form-control', 'label' => __('URL')));
+							echo $this->Form->input('urls', array('type' => 'textarea', 'div' => 'form-group', 'class' => 'form-control', 'label' => __('URLs'), 'after' => __('Enter in multiple URLs on seperate lines if wanting to add several redirects to the same URL')));
 						?>
 					</div>
 					<div class="col-lg-6">

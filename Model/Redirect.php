@@ -16,6 +16,11 @@ class Redirect extends CoderityAppModel {
 		)
 	);
 
+/**
+ * Returns to redirect if one exists
+ * @param  string $url
+ * @return mixed string / boolean	String if URL exists, false otherwise
+ */
 	public function getRedirect($url = null) {
 		if (!$url) {
 			return false;
@@ -42,5 +47,39 @@ class Redirect extends CoderityAppModel {
 		} else {
 			return '/' . $redirect['Redirect']['redirect'];
 		}
+	}
+
+/**
+ * Saves multiple URLs on create
+ * @param  array  $data
+ * @return bool
+ */
+	public function saveMultiple($data = array()) {
+		if (!$data) {
+			throw new NotFoundException(__('Invalid Data'));
+		}
+
+		$this->set($data);
+		if (!$this->validates($data)) {
+			return false;
+		}
+
+		$urls = explode("\n", $data['Redirect']['urls']);
+
+		foreach ($urls as $url) {
+			if (empty($url)) {
+				continue;
+			}
+			$create = array();
+			$create['Redirect']['url']      = $url;
+			$create['Redirect']['redirect'] = $data['Redirect']['redirect'];
+
+			$this->create();
+			if (!$this->save($create)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
