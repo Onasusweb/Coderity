@@ -62,7 +62,7 @@
 							<tbody>
 								<?php foreach ($redirects as $redirect) : ?>
 									<tr>
-										<td><?php echo $redirect['Redirect']['url']; ?></td>
+										<td><?php echo $this->Html->link($redirect['Redirect']['url'], '/' . $redirect['Redirect']['url'], array('target' => '_blank')); ?></td>
 										<td><?php echo (!empty($redirect['Redirect']['redirect'])) ? $redirect['Redirect']['redirect'] : '/'; ?></td>
 										<td>
 											<?php

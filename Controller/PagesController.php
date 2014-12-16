@@ -12,7 +12,7 @@ class PagesController extends CoderityAppController {
 		parent::beforeFilter();
 
 		if(!empty($this->Auth)) {
-			$this->Auth->allow('display');
+			$this->Auth->allow('display', 'ckeditor');
 		}
 	}
 
@@ -54,6 +54,14 @@ class PagesController extends CoderityAppController {
 		if (!empty($page['Page']['view'])) {
 			$this->render($page['Page']['view']);
 		}
+	}
+
+/**
+ * A dynamic config file for CK Editor
+ * @return void
+ */
+	public function ckeditor() {
+		$this->layout = false;
 	}
 
 	public function admin_index($parent_id = null, $search = null) {

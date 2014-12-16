@@ -31,7 +31,7 @@ class CkHelper extends Helper {
         echo $this->Form->input($model . '.' . $field, array('type' => 'textarea', 'label' => false, 'error' => false, 'required' => false));
 		?>
 			<script type="text/javascript">
-				CKEDITOR.replace('<?php echo Inflector::camelize($model.'_'.$field); ?>', { customConfig: '<?php echo $this->Html->url('/coderity/js/ckconfig.js'); ?>' });
+				CKEDITOR.replace('<?php echo Inflector::camelize($model.'_'.$field); ?>', { customConfig: '<?php echo $this->Html->url('/coderity/pages/ckeditor'); ?>' });
 			</script>
 
 			<p>&nbsp;</p>
