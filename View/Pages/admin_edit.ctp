@@ -37,15 +37,13 @@
 														  'class' => 'form-control'));
 						?>
 					</div>
-					<?php if (Configure::read('Content.dropdowns')) : ?>
-						<div class="form-group">
-							<?php echo $this->Form->input('parent_id',
-													array('label' => __('Set Parent Page'),
-														  'empty' => __('No Parent'),
-														  'options' => $pages,
-														  'class' => 'form-control')); ?>
-						</div>
-					<?php endif; ?>
+					<div class="form-group">
+						<?php echo $this->Form->input('parent_id',
+												array('label' => __('Set Parent Page'),
+													  'empty' => __('No Parent'),
+													  'options' => $pages,
+													  'class' => 'form-control')); ?>
+					</div>
 				<?php endif; ?>
 				<?php if (Configure::read('Content.subTitle')) : ?>
 					<div class="form-group">
