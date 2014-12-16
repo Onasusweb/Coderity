@@ -64,7 +64,7 @@ class PagesController extends CoderityAppController {
 		$this->layout = false;
 	}
 
-	public function admin_index($parent_id = null, $search = null) {
+	public function admin_index($parentId = null, $search = null) {
 		if(!empty($this->request->data['Page']['search'])) {
 			$this->redirect(array(0, $this->request->data['Page']['search']));
 		}
@@ -74,16 +74,17 @@ class PagesController extends CoderityAppController {
 		if (!empty($search)) {
 			$conditions['or'] = array('Page.name LIKE' => '%'.$search.'%', 'Page.meta_title LIKE' => '%'.$search.'%', 'Page.slug LIKE' => '%'.$search.'%', 'Page.content LIKE' => '%'.$search.'%');
 		} else {
-			$conditions['parent_id'] = $parent_id;
+			$conditions['parent_id'] = $parentId;
 		}
 
-		if (!empty($parent_id)) {
-			$parent = $this->Page->findById($parent_id, 'name');
+		if ($parentId) {
+			$this->Page->contain();
+			$parent = $this->Page->findById($parentId, 'name');
 			if(empty($parent)) {
 				throw new NotFoundException(__('Invalid page'));
 			}
 
-			$parents = $this->Page->getPath($parent_id, array('id', 'name'));
+			$parents = $this->Page->getPath($parentId, array('id', 'name'));
 			$this->set(compact('parent', 'parents'));
 		}
 
@@ -99,7 +100,7 @@ class PagesController extends CoderityAppController {
 			$this->set('pageElements', $this->Page->find('all', array('conditions' => array('element' => true, $conditions), 'order' => array('Page.name' => 'asc'))));
 		//}
 
-		$this->set('parent_id', $parent_id);
+		$this->set('parent_id', $parentId);
 		$this->set('search', $search);
 	}
 

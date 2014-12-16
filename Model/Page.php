@@ -123,30 +123,30 @@ class Page extends CoderityAppModel {
 * @param string $position Which menu we are building, usually the 'top'
 * @return array The menu
 */
-	public function menu($parent_id = null, $position = 'top') {
+	public function menu($parentId = null, $position = 'top') {
 		$menus = array();
 
 		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class');
-		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
+		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parentId), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
 
-		if (!empty($pages)) {
-			foreach ($pages as $key => $page) {
-				$menu = array();
-				$menu['title'] = $page['Page']['name'];
-				if (!empty($page['Page']['route'])) {
-					$menu['url'] = $page['Page']['route'];
-				} else {
-					$menu['url'] = '/' . $page['Page']['slug'];
-				}
+		if (!$pages) {
+			return array();
+		}
 
-				// future to do - add in dropdowns
-				//if (Configure::read('Content.dropdowns')) {
-					// lets get the children
-					//$menu['children'] = $this->menu($page['Page']['id'], $position);
-				//}
-
-				$menus[] = $menu;
+		foreach ($pages as $key => $page) {
+			$menu = array();
+			$menu['title'] = $page['Page']['name'];
+			if (!empty($page['Page']['route'])) {
+				$menu['url'] = $page['Page']['route'];
+			} else {
+				$menu['url'] = '/' . $page['Page']['slug'];
 			}
+
+
+			// lets get the children
+			$menu['children'] = $this->menu($page['Page']['id'], $position);
+
+			$menus[] = $menu;
 		}
 
 		return $menus;
