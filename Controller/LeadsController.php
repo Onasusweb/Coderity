@@ -33,7 +33,7 @@ class LeadsController extends CoderityAppController {
 			throw new NotFoundException(__('Invalid lead'));
 		}
 
-		if($this->request->is('post')) {
+		if ($this->request->is('post')) {
 			$this->request->data['Lead']['id'] = $id;
 
 			$this->Lead->save($this->request->data);

@@ -17,15 +17,7 @@ class PagesController extends CoderityAppController {
 	}
 
 	public function display($slug = null) {
-		if (!$slug) {
-			throw new NotFoundException(__('Invalid page'));
-		}
-
-		$page = $this->Page->findBySlug($slug);
-
-		if (!$page) {
-			throw new NotFoundException(__('Invalid page'));
-		}
+		$page = $this->Page->get($slug);
 
 		if (!empty($page['Page']['view']) && $this->request->is('post')) {
 			try {
