@@ -112,6 +112,31 @@ class Page extends CoderityAppModel {
 		}
 	}
 
+/**
+ * Checks if a slug exists and returns it if it does
+ * @param  string $slug
+ * @param  bool   $returnErrors If set to true, an error will be thrown if no page exists, otherwise false is returned
+ * @return array
+ */
+	public function get($slug = null, $returnErrors = true) {
+		if (!$slug) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$this->contain();
+		$page = $this->findBySlug($slug);
+
+		if (!$page) {
+			if (!$returnErrors) {
+				return array();
+			}
+
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		return $page;
+	}
+
 	public function getPages($parent_id = null, $position = 'top') {
 		return $this->find('all', array('conditions' => array('Page.'.$position.'_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.'.$position.'_order', 'contain' => false));
 	}

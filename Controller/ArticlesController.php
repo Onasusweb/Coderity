@@ -29,7 +29,7 @@ class ArticlesController extends CoderityAppController {
 		$this->set('articles', $this->paginate());
 
 		$this->loadModel('Coderity.Page');
-		$page = $this->Page->findBySlug('blog');
+		$page = $this->Page->get('blog', false);
 
 		if ($page) {
 			$this->set('page', $page);

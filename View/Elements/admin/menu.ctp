@@ -48,21 +48,27 @@
 					<?php echo $this->Html->link('<i class="fa fa-sitemap fa-fw"></i> ' . __('Pages'), array('plugin' => false, 'controller' => 'pages', 'action' => 'index'), array('escape' => false)); ?>
 				</li>
 
-				<li>
-					<?php echo $this->Html->link('<i class="fa fa-quote-right fa-fw"></i> ' . __('Articles'), array('plugin' => false, 'controller' => 'articles', 'action' => 'index'), array('escape' => false)); ?>
-				</li>
+				<?php if (!Configure::read('Coderity') || Configure::read('Coderity.articles')) : ?>
+					<li>
+						<?php echo $this->Html->link('<i class="fa fa-quote-right fa-fw"></i> ' . __('Articles'), array('plugin' => false, 'controller' => 'articles', 'action' => 'index'), array('escape' => false)); ?>
+					</li>
+				<?php endif; ?>
 
-				<li>
-					<?php echo $this->Html->link('<i class="fa fa-star-o fa-fw"></i> ' . __('Leads'), array('plugin' => false, 'controller' => 'leads', 'action' => 'index'), array('escape' => false)); ?>
-				</li>
+				<?php if (!Configure::read('Coderity') || Configure::read('Coderity.leads')) : ?>
+					<li>
+						<?php echo $this->Html->link('<i class="fa fa-star-o fa-fw"></i> ' . __('Leads'), array('plugin' => false, 'controller' => 'leads', 'action' => 'index'), array('escape' => false)); ?>
+					</li>
+				<?php endif; ?>
 
 				<li>
 					<?php echo $this->Html->link('<i class="fa fa-users fa-fw"></i> ' . __('Admin Users'), array('plugin' => false, 'controller' => 'users', 'action' => 'index'), array('escape' => false)); ?>
 				</li>
 
-				<li>
-					<?php echo $this->Html->link('<i class="fa fa-exchange fa-fw"></i> ' . __('Redirects'), array('plugin' => false, 'controller' => 'redirects', 'action' => 'index'), array('escape' => false)); ?>
-				</li>
+				<?php if (!Configure::read('Coderity') || Configure::read('Coderity.redirects')) : ?>
+					<li>
+						<?php echo $this->Html->link('<i class="fa fa-exchange fa-fw"></i> ' . __('Redirects'), array('plugin' => false, 'controller' => 'redirects', 'action' => 'index'), array('escape' => false)); ?>
+					</li>
+				<?php endif; ?>
 
 				<li>
 					<?php echo $this->Html->link('<i class="fa fa-table fa-fw"></i> ' . __('Settings'), array('plugin' => false, 'controller' => 'settings', 'action' => 'index'), array('escape' => false)); ?>
