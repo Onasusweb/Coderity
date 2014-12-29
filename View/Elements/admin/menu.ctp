@@ -48,6 +48,12 @@
 					<?php echo $this->Html->link('<i class="fa fa-sitemap fa-fw"></i> ' . __('Pages'), array('plugin' => false, 'controller' => 'pages', 'action' => 'index'), array('escape' => false)); ?>
 				</li>
 
+				<?php if (!Configure::read('Coderity') || Configure::read('Coderity.blocks')) : ?>
+					<li>
+						<?php echo $this->Html->link('<i class="fa fa-share-alt fa-fw"></i> ' . __('Content Blocks'), array('plugin' => false, 'controller' => 'blocks', 'action' => 'index'), array('escape' => false)); ?>
+					</li>
+				<?php endif; ?>
+
 				<?php if (!Configure::read('Coderity') || Configure::read('Coderity.articles')) : ?>
 					<li>
 						<?php echo $this->Html->link('<i class="fa fa-quote-right fa-fw"></i> ' . __('Articles'), array('plugin' => false, 'controller' => 'articles', 'action' => 'index'), array('escape' => false)); ?>

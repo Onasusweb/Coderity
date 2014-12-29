@@ -172,3 +172,17 @@ INSERT INTO `redirects` (`id`, `url`, `redirect`, `created`, `modified`) VALUES
 (8, 'default.asp', '', NULL, NULL),
 (10, 'index.cfm', '', NULL, NULL),
 (11, 'index.pl', '', NULL, NULL);
+
+--
+-- Table structure for table `blocks`
+--
+
+CREATE TABLE IF NOT EXISTS `blocks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

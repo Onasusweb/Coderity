@@ -11,7 +11,7 @@ class PagesController extends CoderityAppController {
 	public function beforeFilter(){
 		parent::beforeFilter();
 
-		if(!empty($this->Auth)) {
+		if (!empty($this->Auth)) {
 			$this->Auth->allow('display', 'ckeditor');
 		}
 	}

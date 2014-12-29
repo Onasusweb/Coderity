@@ -11,13 +11,13 @@ class CoderityAppModel extends AppModel {
 * @param  string $id The ID of the model
 * @return string Slug
 */
-	public function generateSlug($title = null, $id = null) {
+	public function generateSlug($title = null, $id = null, $separator = '-') {
 		if (!$title) {
 			throw new NotFoundException(__('Invalid Title'));
 		}
 
 		$title = strtolower($title);
-		$slug  = Inflector::slug($title, '-');
+		$slug  = Inflector::slug($title, $separator);
 
 		$conditions = array();
 		$conditions[$this->alias . '.slug'] = $slug;
@@ -29,11 +29,11 @@ class CoderityAppModel extends AppModel {
 		$total = $this->find('count', array('conditions' => $conditions, 'recursive' => -1));
 		if ($total > 0) {
 			for ($number = 2; $number > 0; $number ++) {
-				$conditions[$this->alias . '.slug'] = $slug . '-' . $number;
+				$conditions[$this->alias . '.slug'] = $slug . $separator . $number;
 
 				$total = $this->find('count', array('conditions' => $conditions, 'recursive' => -1));
 				if ($total == 0) {
-					return $slug . '-' . $number;
+					return $slug . $separator . $number;
 				}
 			}
 		}
