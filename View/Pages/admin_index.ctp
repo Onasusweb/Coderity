@@ -119,6 +119,20 @@
 																 'title' => __('Edit')));
 								?>
 								<?php
+								if (!empty($page['Page']['revisions']))	{
+									echo $this->Html->link('<i class="fa fa-clipboard"></i>',
+														   array('controller' => 'revisions',
+														   		 'action' => 'model',
+														   		 'Page',
+																 $page['Page']['id']),
+														   array('class' => 'btn btn-info',
+																 'escape' => false,
+																 'alt' => __('Revisions'),
+																 'title' => __('Revisions')));
+								}
+								?>
+
+								<?php
 									echo $this->Html->link('<i class="fa fa-copy"></i>',
 														   array('action' => 'add',
 																 0,

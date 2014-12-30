@@ -3,6 +3,12 @@ App::uses('CoderityAppModel', 'Coderity.Model');
 
 class Block extends CoderityAppModel {
 
+	public $actsAs = array('Coderity.Revision' => array('fields' => 'content'));
+
+	public $hasMany = array('Revision' => array('className' => 'Coderity.Revision', 'foreignKey' => 'model_id', 'conditions' => array('model' => 'Block')));
+
+	public $virtualFields = array('revisions' => 'SELECT COUNT(id) FROM revisions WHERE model_id = Block.id AND model = \'Block\'');
+
 	public $validate = array(
 		'name' => array(
 			'rule' => 'notEmpty',

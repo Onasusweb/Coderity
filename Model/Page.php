@@ -3,9 +3,11 @@ App::uses('CoderityAppModel', 'Coderity.Model');
 
 class Page extends CoderityAppModel {
 
-	public $actsAs = array('Tree');
+	public $hasMany = array('Revision' => array('className' => 'Coderity.Revision', 'foreignKey' => 'model_id', 'conditions' => array('model' => 'Page')));
 
-	public $virtualFields = array('children' => 'SELECT COUNT(id) FROM pages WHERE parent_id = Page.id');
+	public $actsAs = array('Tree', 'Coderity.Revision' => array('fields' => 'content'));
+
+	public $virtualFields = array('children' => 'SELECT COUNT(id) FROM pages WHERE parent_id = Page.id', 'revisions' => 'SELECT COUNT(id) FROM revisions WHERE model_id = Page.id AND model = \'Page\'');
 
 	public $validate = array(
 		'name' => array(

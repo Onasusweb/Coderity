@@ -186,3 +186,23 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+--
+-- Table structure for table `revisions`
+--
+
+CREATE TABLE IF NOT EXISTS `revisions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `revision` varchar(255) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `model_id` int(11) NOT NULL,
+  `field` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `model_id` (`model_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

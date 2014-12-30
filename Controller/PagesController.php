@@ -81,16 +81,12 @@ class PagesController extends CoderityAppController {
 		}
 
 		//if (Configure::read('Content.topMenu')) {
-			$this->set('topPages', $this->Page->find('all', array('conditions' => array('top_show' => true, 'element' => false, $conditions), 'order' => array('top_order' => 'asc'))));
+			$this->set('topPages', $this->Page->find('all', array('conditions' => array('top_show' => true, 'element' => false, $conditions), 'order' => array('top_order' => 'asc'), 'contain' => false)));
 		//}
 		//if (Configure::read('Content.bottomMenu')) {
-			$this->set('bottomPages', $this->Page->find('all', array('conditions' => array('bottom_show' => true, 'element' => false, $conditions), 'order' => array('bottom_order' => 'asc'))));
+			$this->set('bottomPages', $this->Page->find('all', array('conditions' => array('bottom_show' => true, 'element' => false, $conditions), 'order' => array('bottom_order' => 'asc'), 'contain' => false)));
 		//}
-		$this->set('staticPages', $this->Page->find('all', array('conditions' => array('top_show' => false, 'bottom_show' => false, 'element' => false, $conditions), 'order' => array('Page.name' => 'asc'))));
-
-		//if (Configure::read('Content.pageElements')) {
-			$this->set('pageElements', $this->Page->find('all', array('conditions' => array('element' => true, $conditions), 'order' => array('Page.name' => 'asc'))));
-		//}
+		$this->set('staticPages', $this->Page->find('all', array('conditions' => array('top_show' => false, 'bottom_show' => false, 'element' => false, $conditions), 'order' => array('Page.name' => 'asc'), 'contain' => false)));
 
 		$this->set('parent_id', $parentId);
 		$this->set('search', $search);
@@ -114,11 +110,15 @@ class PagesController extends CoderityAppController {
 		$this->set('pages', $this->Page->generateTreeList(array('Page.element' => false), null, '{n}.Page.name', '-> '));
 	}
 
-	public function admin_edit($id = null, $revision_id = null) {
+	public function admin_edit($id = null, $revision = null) {
 		if (!$id) {
 			throw new NotFoundException(__('Invalid page'));
 		}
 
+		// not sure why, but the Revision Model needs to be loaded manually, and loaded here to work!
+		$this->loadModel('Coderity.Revision');
+
+		$this->Page->contain();
 		$page = $this->Page->findById($id);
 		if (!$page) {
 			throw new NotFoundException(__('Invalid page'));
@@ -132,19 +132,10 @@ class PagesController extends CoderityAppController {
 			}
 			$this->redirect(array('action'=>'index'));
 		} else {
-			// lets see if this page is a draft!
-			if(!empty($page['Page']['draft']) && empty($revision_id)) {
-				// lets find the latest revision
-				$revision = $this->Page->Revision->find('first', array('conditions' => array('Revision.page_id' => $id), 'order' => array('Revision.created' => 'desc', 'Revision.id' => 'desc'), 'contain' => false, 'fields' => 'Revision.id'));
-				if(!empty($revision)) {
-					$revision_id = $revision['Revision']['id'];
-				}
-			}
-
 			$this->request->data = $page;
 
-			if(!empty($revision_id)) {
-				$this->request->data = $this->Page->Revision->getRevision($revision_id, $this->request->data);
+			if ($revision) {
+				$this->request->data['Page'] = $this->Page->Revision->get($revision, $this->request->data['Page']);
 			}
 		}
 

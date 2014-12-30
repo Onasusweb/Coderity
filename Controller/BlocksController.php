@@ -67,7 +67,10 @@ class BlocksController extends CoderityAppController {
  * @param string $id
  * @return void
  */
-	public function admin_edit($id = null) {
+	public function admin_edit($id = null, $revision = null) {
+		// not sure why, but the Revision Model needs to be loaded manually, and loaded here to work!
+		$this->loadModel('Coderity.Revision');
+
 		if (!$this->Block->exists($id)) {
 			throw new NotFoundException(__('Invalid content block'));
 		}
@@ -81,6 +84,10 @@ class BlocksController extends CoderityAppController {
 		} else {
 			$options = array('conditions' => array('Block.' . $this->Block->primaryKey => $id), 'contain' => false);
 			$this->request->data = $this->Block->find('first', $options);
+
+			if ($revision) {
+				$this->request->data['Block'] = $this->Block->Revision->get($revision, $this->request->data['Block']);
+			}
 		}
 	}
 

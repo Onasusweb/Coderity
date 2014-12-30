@@ -76,7 +76,21 @@
 																		 'escape' => false,
 																		 'alt' => __('Edit'),
 																		 'title' => __('Edit')));
-											echo '&nbsp;';
+
+											if (!empty($block['Block']['revisions']))	{
+												echo '&nbsp;';
+												echo $this->Html->link('<i class="fa fa-clipboard"></i>',
+																	   array('controller' => 'revisions',
+																	   		 'action' => 'model',
+																	   		 'Block',
+																			 $block['Block']['id']),
+																	   array('class' => 'btn btn-info',
+																			 'escape' => false,
+																			 'alt' => __('Revisions'),
+																			 'title' => __('Revisions')));
+											}
+
+											echo '&nbsp';
 											echo $this->Form->postLink('<i class="fa fa-trash-o"></i>',
 																	   array('action' => 'delete',
 																			 $block['Block']['id']),

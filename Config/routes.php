@@ -37,7 +37,7 @@
  */
     Router::connect('/article/*', array('plugin' => $plugin, 'controller' => 'articles', 'action' => 'view'));
 
-    $controllers = array('articles', 'blocks', 'leads', 'pages', 'redirects', 'settings', 'users');
+    $controllers = array('articles', 'blocks', 'leads', 'pages', 'redirects', 'revisions', 'settings', 'users');
     foreach ($controllers as $controller) {
         Router::connect('/' . $controller, array('plugin' => $plugin, 'controller' => $controller));
         Router::connect('/' . $controller . '/:action', array('plugin' => $plugin, 'controller' => $controller, 'action' => ':action'));
