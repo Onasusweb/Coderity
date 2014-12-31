@@ -10,7 +10,7 @@ class UsersController extends CoderityAppController {
 	public function beforeFilter(){
 		parent::beforeFilter();
 
-		if(!empty($this->Auth)) {
+		if (!empty($this->Auth)) {
 			$this->Auth->allow('admin_login', 'admin_reset', 'admin_install');
 		}
 	}
@@ -74,14 +74,16 @@ class UsersController extends CoderityAppController {
 	}
 
 	public function admin_reset(){
+		$this->layout = false;
+
 		if ($this->request->is('post')) {
 			try {
 				$this->User->reset($this->request->data);
 
-				$this->Session->setFlash(__('Please check your account.  An email containing your account details has been sent to you.'));
+				$this->Session->setFlash(__('Please check your account. An email containing your account details has been sent to you.'));
 				$this->redirect(array('action'=>'login'));
 			} catch (Exception $e) {
-				$this->Session->setFlash($e->getMessage());
+				$this->Session->setFlash($e->getMessage(), 'error');
 			}
 		}
 

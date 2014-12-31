@@ -61,3 +61,7 @@ form .error-message {
 .sign-in {
 	text-align: center;
 }
+.bottom-links {
+	padding-top: 10px;
+	text-align: center;
+}

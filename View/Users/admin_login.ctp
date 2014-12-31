@@ -24,6 +24,10 @@
 								</label>
 							</div>
 							<?php echo $this->Form->submit(__('Login'), array('class' => 'btn btn-lg btn-success btn-block')); ?>
+
+							<div class="bottom-links">
+								<?php echo $this->Html->link(__('Password Reminder'), array('action' => 'reset')); ?>
+							</div>
 						</fieldset>
 					<?php echo $this->Form->end(); ?>
 				</div>

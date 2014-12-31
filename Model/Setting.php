@@ -32,7 +32,7 @@ class Setting extends CoderityAppModel {
  */
 	public function get($name = null) {
 		if (!$name) {
-			throw new NotFoundException('No name found');
+			throw new NotFoundException('No setting found');
 		}
 
 		$name = Inflector::underscore($name);
@@ -41,7 +41,7 @@ class Setting extends CoderityAppModel {
 		$setting = $this->findByName($name);
 
 		if (!$setting) {
-			throw new NotFoundException('No name found');
+			throw new NotFoundException('No setting found');
 		}
 
 		return $setting['Setting']['value'];

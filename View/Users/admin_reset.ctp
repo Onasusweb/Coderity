@@ -1,41 +1,31 @@
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<div class="login-panel panel panel-default ">
+<?php
+	echo $this->element('admin/header');
+	echo $this->Session->flash();
+?>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="login-panel panel panel-default">
 			<div class="panel-heading">
-				<?php echo __('Reset Password');?>
-			</div>
-			<div class="panel-body">
-				<fieldset>
-					<div class="form-group">
-						<p><?php echo __('If you have forgotten your username or password simply enter in your email address below.');?></p>
-						<p><?php echo __('We will email your username and a new password to you.');?></p>
-					</div>
-					<?php echo $this->Form->create('User', array('action' => 'reset'));?>
-					<div class="form-group">
-						<?php
-							echo $this->Form->input('email',
-													array('placeholder' => __('Enter Your Email'),
-														  'label' => false,
-														  'class' => 'form-control',
-														  'autofocus' => 'autofocus'));
-						?>
-					</div>
-					<div class="form-group">
-						<?php
-							echo $this->Form->button(__('Reset Password'),
-													 array('type' => 'submit',
-														   'class' => 'btn btn-lg btn-success btn-block'));
-						?>
-					</div>
+					<h3 class="panel-title sign-in"><?php echo $this->Html->image('Coderity.logo.png') ?></h3>
+				</div>
+				<div class="panel-body">
+					<?php echo $this->Form->create('User', array('url' => array('plugin' => false, 'action' => 'reset')));?>
+						<fieldset>
+							<?php
+								echo $this->Form->input('email', array('div' => 'form-group', 'class' => 'form-control', 'placeholder' => __('Your Email Address'), 'label' => false));
+								echo $this->Form->submit(__('Reset Password'), array('class' => 'btn btn-lg btn-success btn-block')); ?>
+
+							<div class="bottom-links">
+								<?php echo $this->Html->link(__('Return to the login page'), array('action' => 'login')); ?>
+							</div>
+						</fieldset>
 					<?php echo $this->Form->end(); ?>
-				</fieldset>
-			</div>
-			<div class="panel-footer">
-				<p>
-					<?php echo $this->Html->link(__('Back to Login Page'),
-												 array('action'=>'login'));?>
-				</p>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<?php echo $this->element('admin/footer'); ?>
