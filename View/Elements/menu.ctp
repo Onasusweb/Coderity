@@ -17,6 +17,11 @@ if ($loadMenu) :
 	<?php endif; ?>
 
 	<?php foreach ($loadMenu as $menu) :
+		$options = array();
+		if (!empty($menu['new_window'])) {
+			$options['target'] = '_blank';
+		}
+
 		$liClass = array();
 
 		if (!empty($li['class'])) {
@@ -29,7 +34,7 @@ if ($loadMenu) :
 		?>
 
 		<li<?php if (!empty($liClass)) : ?> class="<?php echo implode(' ', $liClass); ?>"<?php endif; ?>>
-			<?php echo $this->Html->link($menu['title'], $menu['url']); ?>
+			<?php echo $this->Html->link($menu['title'], $menu['url'], $options); ?>
 		</li>
 	<?php endforeach; ?></ul>
 <?php endif; ?>
