@@ -73,11 +73,8 @@ class Page extends CoderityAppModel {
 		}
 
 		if (!empty($this->data['Page']['make_homepage'])) {
-			$this->updateAll(array('Page.route' => null));
-
+			$this->updateAll(array('Page.route' => null), array('Page.route' => '/'));
 			$this->data['Page']['route'] = '/';
-		} else {
-			$this->data['Page']['route'] = null;
 		}
 
 		return true;
@@ -153,7 +150,7 @@ class Page extends CoderityAppModel {
 	public function menu($parentId = null, $position = 'top') {
 		$menus = array();
 
-		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class');
+		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class', 'new_window');
 		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parentId), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
 
 		if (!$pages) {
@@ -169,6 +166,7 @@ class Page extends CoderityAppModel {
 				$menu['url'] = '/' . $page['Page']['slug'];
 			}
 
+			$menu['new_window'] = $page['Page']['new_window'];
 
 			// lets get the children
 			$menu['children'] = $this->menu($page['Page']['id'], $position);

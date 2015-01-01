@@ -74,17 +74,15 @@
 													  array('label' => __('Show this page in the bottom menu?'))); ?>
 					</div>
 				<?php //endif; ?>
+
+				<div id="newWindow" class="checkbox check">
+					<?php echo $this->Form->input('new_window',
+													  array('label' => __('Make this page open in a new window?'))); ?>
+				</div>
+
 				<div class="well">
 					<h3><?php echo __('Advanced Settings'); ?></h3>
 					<p><?php echo __('These settings are optional and should only be edited if you are sure what you are doing.'); ?></p>
-					<?php
-						if (Configure::read('debug') > 0
-							&& Configure::read('Content.pageElements') > 0) :
-					?>
-						<div class="form-group">
-							<?php echo $this->Form->input('element', array('label' => __('This is a page element'))); ?>
-						</div>
-					<?php endif; ?>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
@@ -95,23 +93,44 @@
 								?>
 							</div>
 						</div>
-						<?php //if (Configure::read('Content.pageView')) : ?>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<?php
-										echo $this->Form->input('view',
-																array('label' => __('Page View'),
-																	  'class' => 'form-control'));
-									?>
-								</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<?php
+									echo $this->Form->input('view',
+															array('label' => __('Page View'),
+																  'class' => 'form-control'));
+								?>
 							</div>
-						<?php //endif; ?>
+						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="checkbox check">
 								<?php echo $this->Form->input('make_homepage', array('label' => __('Make this page the home page'), 'type' => 'checkbox')); ?>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<?php
+									echo $this->Form->input('route',
+															array('label' => __('301 Redirect'),
+																  'class' => 'form-control',
+																  'after' => __('If set, the page will link to this URL')));
+								?>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<?php
+									echo $this->Form->input('post_route',
+															array('label' => __('Post Redirect'),
+																  'class' => 'form-control',
+																  'after' => __('If set, any form will be redirected to this URL.')));
+								?>
 							</div>
 						</div>
 					</div>
@@ -129,3 +148,21 @@
 									 array('class' => 'btn btn-default'));?>
 	</div>
 </div>
+
+<script>
+	$(function() {
+
+		function showHide() {
+			if ($('#PageTopShow').prop('checked') || $('#PageBottomShow').prop('checked')) {
+				$('#newWindow').show();
+			} else {
+				$('#newWindow').hide();
+			}
+		};
+
+		$('#PageTopShow').click(function() { showHide(); });
+		$('#PageBottomShow').click(function() { showHide(); });
+
+		showHide();
+	});
+</script>

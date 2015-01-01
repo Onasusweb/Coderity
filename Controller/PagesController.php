@@ -28,7 +28,11 @@ class PagesController extends CoderityAppController {
 				ClassRegistry::init($model)->saveLead($this->request->data, $page['Page']['view']);
 
 				$this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
-				$this->redirect($this->referer(array('action'=>'display', $slug)));
+
+				if (!empty($page['Page']['post_route'])) {
+					return $this->redirect($page['Page']['post_route']);
+				}
+				return $this->redirect($this->referer(array('action'=>'display', $slug)));
 			} catch (Exception $e) {
 				$this->Session->setFlash($e->getMessage(), 'error');
 			}
