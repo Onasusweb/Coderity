@@ -15,6 +15,20 @@ How to Install
 
    CakePlugin::load(array('Coderity' => array('routes' => true, 'bootstrap' => true)));
 
+   Configure::write('Coderity', array(
+      'routes' => array(
+                  'autoRouting' => true,
+                  'autoRoutingIgnoreRoutes' => 'add|view|display|delete|admin|users|leads|blog|domains'
+               ),
+      'blocks' => true,
+      'articles' => true,
+      'leads' => true,
+      'redirects' => true,
+      'additionalAdminMenu' => array()
+   ));
+
+   The bottom part is the settings, which you can adjust accordingly depending on what you want to display in your Admin Area.
+
 4) In app/Config/routes.php comment out the following two lines:
 
    //Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));

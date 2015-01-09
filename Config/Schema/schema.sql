@@ -213,3 +213,8 @@ ALTER TABLE `pages` ADD `new_window` TINYINT( 1 ) NOT NULL AFTER `bottom_order` 
 ALTER TABLE `pages` ADD `post_route` VARCHAR( 255 ) NOT NULL AFTER `route` ;
 
 ALTER TABLE `pages` CHANGE `post_route` `post_route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
+
+-- Added 9th Jan 2015
+
+ALTER TABLE `articles` ADD `route` VARCHAR( 255 ) NULL AFTER `image` ,
+ADD `new_window` TINYINT( 1 ) NOT NULL AFTER `route` ;

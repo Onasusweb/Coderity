@@ -63,6 +63,10 @@ class ArticlesController extends CoderityAppController {
 			throw new NotFoundException(__('Invalid Article'));
 		}
 
+		if (!empty($article['Article']['route'])) {
+			return $this->redirect($article['Article']['route']);
+		}
+
 		$this->set(compact('article'));
 
 		$this->set('title_for_layout', $article['Article']['title']);
