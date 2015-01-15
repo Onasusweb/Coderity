@@ -29,7 +29,7 @@ class UsersController extends CoderityAppController {
 
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
-				$this->Cookie->write('User.id', true, '+6 hours');
+				//$this->Cookie->write('User.id', true, '+6 hours');
 				$this->Session->setFlash(__('You have been successfully logged in.'));
 				$this->redirect(array('action' => 'home'));
 			} else {
