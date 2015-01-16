@@ -96,8 +96,8 @@ class PagesController extends CoderityAppController {
 		$this->set('search', $search);
 	}
 
-	public function admin_add($parent_id = null, $duplicate_id = null) {
-		if($this->request->is('post')) {
+	public function admin_add($parentId = null, $duplicateId = null) {
+		if ($this->request->is('post')) {
 			$this->Page->create();
 			if ($this->Page->save($this->request->data)) {
 				$this->Session->setFlash(__('The page has been added successfully.'));
@@ -105,10 +105,10 @@ class PagesController extends CoderityAppController {
 			} else {
 				$this->Session->setFlash(__('There was a problem adding the page, please review the errors below and try again.'), 'error');
 			}
-		} elseif(!empty($duplicate_id)) {
-			$this->request->data = $this->Page->findById($duplicate_id);
+		} elseif ($duplicateId) {
+			$this->request->data = $this->Page->getCopy($duplicateId);
 		} else {
-			$this->request->data['Page']['parent_id'] = $parent_id;
+			$this->request->data['Page']['parent_id'] = $parentId;
 		}
 
 		$this->set('pages', $this->Page->generateTreeList(array('Page.element' => false), null, '{n}.Page.name', '-> '));

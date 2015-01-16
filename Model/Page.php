@@ -176,4 +176,31 @@ class Page extends CoderityAppModel {
 
 		return $menus;
 	}
+
+/**
+ * created a clean copy of a page
+ * @param  int $id
+ * @return array
+ */
+	public function getCopy($id = null) {
+		if (!$id) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$this->contain();
+		$page = $this->findById($id);
+
+		if (!$page) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$fields = array('id', 'lft', 'rght', 'slug', 'created', 'modified');
+		foreach ($fields as $field) {
+			unset($page['Page'][$field]);
+		}
+
+		$page['Page']['name'] .= ' (Copy)';
+
+		return $page;
+	}
 }
