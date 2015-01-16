@@ -66,6 +66,8 @@ class UsersController extends CoderityAppController {
 				$this->Session->setFlash(__('There was a problem, please review the errors below and try again.'), 'error');
 			}
 		}
+
+		$this->set('title_for_layout', __('Install'));
 	}
 
 	public function admin_logout() {
