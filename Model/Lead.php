@@ -68,8 +68,9 @@ class Lead extends CoderityAppModel {
 			throw new LogicException(__('There was a problem, please review the errors below and try again.'));
 		}
 
-		$siteEmail = ClassRegistry::init('Coderity.Setting')->get('site_email');
-		$siteName  = ClassRegistry::init('Coderity.Setting')->get('site_name');
+		$siteEmail = ClassRegistry::init('Coderity.Setting')->get('siteEmail');
+		$siteName  = ClassRegistry::init('Coderity.Setting')->get('siteName');
+		$ccEmails  = ClassRegistry::init('Coderity.Setting')->get('siteEmailsCc');
 
 		if ($siteEmail) {
 			App::uses('CakeEmail', 'Network/Email');
@@ -77,6 +78,9 @@ class Lead extends CoderityAppModel {
 			$email = new CakeEmail();
 			$email->from(array($result['Lead']['email'] => $result['Lead']['name']));
 			$email->to($siteEmail);
+			if ($ccEmails) {
+				$email->cc($ccEmails);
+			}
 			$email->subject(__('%s - The %s form has been submitted', $siteName, $result['Lead']['type']));
 			$email->template('Coderity.newLead');
 			$email->emailFormat('both');
