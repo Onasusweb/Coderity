@@ -218,3 +218,7 @@ ALTER TABLE `pages` CHANGE `post_route` `post_route` VARCHAR( 255 ) CHARACTER SE
 
 ALTER TABLE `articles` ADD `route` VARCHAR( 255 ) NULL AFTER `image` ,
 ADD `new_window` TINYINT( 1 ) NOT NULL AFTER `route` ;
+
+-- Added 16th Jan 2015
+
+INSERT INTO `settings` (`id`, `name`, `value`, `modified`) VALUES (NULL, 'site_emails_cc', '', NULL);
