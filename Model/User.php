@@ -197,4 +197,37 @@ class User extends CoderityAppModel {
 
 		return $newPassword;
 	}
+
+/**
+ * Installs a new user and the website settings
+ * @param  array  $data
+ * @return boolean
+ */
+	public function install($data = array()) {
+		if (!$data) {
+			throw new NotFoundException(__('Invalid Data'));
+		}
+
+		// lets check if both models pass validation
+		$userValiate = $this->validate($data);
+
+		$this->Setting  = ClassRegistry::init('Coderity.Setting');
+		$settingValiate = $this->Setting->validateInstall($data);
+
+		if (!$userValiate || !$settingValiate) {
+			// if not, we display the errors from both models
+			throw new LogicException(__('There was a problem, please review the errors below and try again.'));
+		}
+
+		if (!$this->Setting->updateSettings($data)) {
+			throw new LogicException(__('There was a problem updating the settings.'));
+		}
+
+		$this->create();
+		if (!$this->save($data)) {
+			return false;
+		}
+
+		return true;
+	}
 }

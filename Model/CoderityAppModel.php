@@ -59,4 +59,18 @@ class CoderityAppModel extends AppModel {
 
 		return true;
 	}
+
+/**
+ * A nice little validate data method
+ * @param  array  $data
+ * @return boolean
+ */
+	public function validate($data = array()) {
+		if (!$data) {
+			throw new NotFoundException(__('Invalid Data'));
+		}
+
+		$this->set($data);
+		return $this->validates();
+	}
 }

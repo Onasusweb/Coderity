@@ -50,11 +50,12 @@ class UsersController extends CoderityAppController {
 		}
 
 		if ($this->request->is('post')) {
-			$this->User->create();
-			if ($this->User->save($this->request->data)) {
+			try {
+				$this->User->install($this->request->data);
+
 				if ($this->Auth->login()) {
 					// lets set a cookie for the KC finder plugin - used to check a valid user
-					$this->Cookie->write('User.id', $this->Auth->user('id'), true, '+6 hours');
+					//$this->Cookie->write('User.id', $this->Auth->user('id'), true, '+6 hours');
 
 					$this->Session->setFlash(__('Coderity has been successfully installed and you have been automatically logged in!'));
 					$this->redirect(array('action' => 'home'));
@@ -62,8 +63,8 @@ class UsersController extends CoderityAppController {
 					$this->Session->setFlash(__('Coderity has been successfully installed, please login below.'));
 					$this->redirect(array('action' => 'login'));
 				}
-			} else {
-				$this->Session->setFlash(__('There was a problem, please review the errors below and try again.'), 'error');
+			} catch (Exception $e) {
+				$this->Session->setFlash($e->getMessage(), 'error');
 			}
 		}
 
@@ -93,7 +94,11 @@ class UsersController extends CoderityAppController {
 	}
 
 	public function admin_home() {
-		$this->set('title_for_layout', __('Dashboard'));
+		$siteName  		  = ClassRegistry::init('Coderity.Setting')->get('siteName');
+		$siteEmail 		  = ClassRegistry::init('Coderity.Setting')->get('siteEmail');
+		$title_for_layout = __('Dashboard');
+
+		$this->set(compact('siteName', 'siteEmail', 'title_for_layout'));
 	}
 
 	public function admin_index($search = null) {
