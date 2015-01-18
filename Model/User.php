@@ -87,6 +87,7 @@ class User extends CoderityAppModel {
 				$this->data[$this->alias]['password']
 			);
 		}
+
 		return true;
 	}
 
@@ -96,33 +97,36 @@ class User extends CoderityAppModel {
  * @param array $data Data containing user information which will be verified
  * @return mixed User and email parameter array if success, false otherwise
  */
-	public function reset($data, $newPasswordLength = 8) {
+	public function reset($data = array(), $newPasswordLength = 8) {
 		if (!$data || empty($data['User'])) {
 			throw new NotFoundException(__('Invalid Data'));
 		}
 
-		// Loop through given data array and put it as condition to check
-		$conditions = array();
+		$this->set($data);
 
-		foreach ($data['User'] as $key => $datum) {
-			if($this->hasField($key)){
-				$conditions[$key] = $datum;
-			}
+		$this->validator()->remove('email', 'isUnique');
+
+		if (!$this->validates()) {
+			throw new LogicException(__('There was a problem, please review the errors and try again.'));
 		}
 
-		// Find the user
-		$user = $this->find('first', array('conditions' => $conditions, 'contain' => false));
+		$this->recursive = -1;
+		$user = $this->findByEmail($data['User']['email']);
 
 		if (!$user) {
 			throw new NotFoundException(__('The email address you entered was not found.  Please try a different email address.'));
 		}
 
+		$siteEmail = ClassRegistry::init('Coderity.Setting')->get('site_email');
+		$siteName  = ClassRegistry::init('Coderity.Setting')->get('site_name');
+
+		if (!$siteEmail || !$siteName) {
+			throw new LogicException(__('The site name or email have not been configured.'));
+		}
+
 		// Formating the data for email sending
 		// Put the reset link inside the user array
 		$user['User']['password'] = $this->generateRandomPassword($newPasswordLength);
-		$user['to']               = $user['User']['email'];
-		$user['subject']          = __('Account Reset - %s', Configure::read('Config.name'));
-		$user['template']         = 'reset';
 
 		// Save the user info
 		$this->id = $user['User']['id'];
@@ -131,12 +135,12 @@ class User extends CoderityAppModel {
 		App::uses('CakeEmail', 'Network/Email');
 
 		$email = new CakeEmail();
-		$email->from(array(Configure::read('Config.email') => Configure::read('Config.name')));
-		$email->to($user['to']);
-		$email->subject($user['subject']);
-		$email->template($user['template']);
+		$email->from(array($siteEmail => $siteName));
+		$email->to($user['User']['email']);
+		$email->subject(__('Account Reset - %s', $siteName));
+		$email->template('Coderity.reset');
 		$email->emailFormat('both');
-		$email->viewVars(array('data' => $user));
+		$email->viewVars(compact('user', 'siteName'));
 
 		if (!$email->send()) {
 			throw new LogicException(__('There was a problem sending the forgotten password email. Please try again or contact us if this problem persists.'));
@@ -192,5 +196,38 @@ class User extends CoderityAppModel {
 		}
 
 		return $newPassword;
+	}
+
+/**
+ * Installs a new user and the website settings
+ * @param  array  $data
+ * @return boolean
+ */
+	public function install($data = array()) {
+		if (!$data) {
+			throw new NotFoundException(__('Invalid Data'));
+		}
+
+		// lets check if both models pass validation
+		$userValiate = $this->validate($data);
+
+		$this->Setting  = ClassRegistry::init('Coderity.Setting');
+		$settingValiate = $this->Setting->validateInstall($data);
+
+		if (!$userValiate || !$settingValiate) {
+			// if not, we display the errors from both models
+			throw new LogicException(__('There was a problem, please review the errors below and try again.'));
+		}
+
+		if (!$this->Setting->updateSettings($data)) {
+			throw new LogicException(__('There was a problem updating the settings.'));
+		}
+
+		$this->create();
+		if (!$this->save($data)) {
+			return false;
+		}
+
+		return true;
 	}
 }

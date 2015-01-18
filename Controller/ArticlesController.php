@@ -29,17 +29,17 @@ class ArticlesController extends CoderityAppController {
 		$this->set('articles', $this->paginate());
 
 		$this->loadModel('Coderity.Page');
-		$page = $this->Page->findBySlug('blog');
+		$page = $this->Page->get('blog', false);
 
 		if ($page) {
 			$this->set('page', $page);
 
 			$this->set('title_for_layout', $page['Page']['meta_title']);
 			if (!empty($page['Page']['meta_description'])) {
-				$this->set('meta_description', $page['Page']['meta_description']);
+				$this->set('metaDescription', $page['Page']['meta_description']);
 			}
 			if (!empty($page['Page']['meta_keywords'])) {
-				$this->set('meta_keywords', $page['Page']['meta_keywords']);
+				$this->set('metaKeywords', $page['Page']['meta_keywords']);
 			}
 		}
 	}
@@ -63,14 +63,18 @@ class ArticlesController extends CoderityAppController {
 			throw new NotFoundException(__('Invalid Article'));
 		}
 
+		if (!empty($article['Article']['route'])) {
+			return $this->redirect($article['Article']['route']);
+		}
+
 		$this->set(compact('article'));
 
 		$this->set('title_for_layout', $article['Article']['title']);
 		if (!empty($article['Article']['meta_description'])) {
-			$this->set('meta_description', $article['Article']['meta_description']);
+			$this->set('metaDescription', $article['Article']['meta_description']);
 		}
 		if (!empty($article['Article']['meta_keywords'])) {
-			$this->set('meta_keywords', $article['Article']['meta_keywords']);
+			$this->set('metaKeywords', $article['Article']['meta_keywords']);
 		}
 	}
 

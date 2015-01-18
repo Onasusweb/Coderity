@@ -38,9 +38,6 @@ class Article extends CoderityAppModel {
 		'brief' => array(
 			'rule' => 'notEmpty',
 		),
-		'content' => array(
-			'rule' => 'notEmpty',
-		),
 		'date' => array(
 			'rule' => 'date',
 			'message' => 'Please enter in a valid date',

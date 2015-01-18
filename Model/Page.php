@@ -3,9 +3,11 @@ App::uses('CoderityAppModel', 'Coderity.Model');
 
 class Page extends CoderityAppModel {
 
-	public $actsAs = array('Tree');
+	public $hasMany = array('Revision' => array('className' => 'Coderity.Revision', 'foreignKey' => 'model_id', 'conditions' => array('model' => 'Page')));
 
-	public $virtualFields = array('children' => 'SELECT COUNT(id) FROM pages WHERE parent_id = Page.id');
+	public $actsAs = array('Tree', 'Coderity.Revision' => array('fields' => 'content'));
+
+	public $virtualFields = array('children' => 'SELECT COUNT(id) FROM pages WHERE parent_id = Page.id', 'revisions' => 'SELECT COUNT(id) FROM revisions WHERE model_id = Page.id AND model = \'Page\'');
 
 	public $validate = array(
 		'name' => array(
@@ -71,11 +73,8 @@ class Page extends CoderityAppModel {
 		}
 
 		if (!empty($this->data['Page']['make_homepage'])) {
-			$this->updateAll(array('Page.route' => null));
-
+			$this->updateAll(array('Page.route' => null), array('Page.route' => '/'));
 			$this->data['Page']['route'] = '/';
-		} else {
-			$this->data['Page']['route'] = null;
 		}
 
 		return true;
@@ -112,6 +111,31 @@ class Page extends CoderityAppModel {
 		}
 	}
 
+/**
+ * Checks if a slug exists and returns it if it does
+ * @param  string $slug
+ * @param  bool   $returnErrors If set to true, an error will be thrown if no page exists, otherwise false is returned
+ * @return array
+ */
+	public function get($slug = null, $returnErrors = true) {
+		if (!$slug) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$this->contain();
+		$page = $this->findBySlug($slug);
+
+		if (!$page) {
+			if (!$returnErrors) {
+				return array();
+			}
+
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		return $page;
+	}
+
 	public function getPages($parent_id = null, $position = 'top') {
 		return $this->find('all', array('conditions' => array('Page.'.$position.'_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.'.$position.'_order', 'contain' => false));
 	}
@@ -123,32 +147,60 @@ class Page extends CoderityAppModel {
 * @param string $position Which menu we are building, usually the 'top'
 * @return array The menu
 */
-	public function menu($parent_id = null, $position = 'top') {
+	public function menu($parentId = null, $position = 'top') {
 		$menus = array();
 
-		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class');
-		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parent_id), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
+		$fields = array('id', 'name', 'slug', 'parent_id', 'route', 'class', 'new_window');
+		$pages = $this->find('all', array('conditions' => array('Page.' . $position . '_show' => true, 'Page.parent_id' => $parentId), 'order' => 'Page.' . $position . '_order', 'contain' => false, 'fields' => $fields));
 
-		if (!empty($pages)) {
-			foreach ($pages as $key => $page) {
-				$menu = array();
-				$menu['title'] = $page['Page']['name'];
-				if (!empty($page['Page']['route'])) {
-					$menu['url'] = $page['Page']['route'];
-				} else {
-					$menu['url'] = '/' . $page['Page']['slug'];
-				}
+		if (!$pages) {
+			return array();
+		}
 
-				// future to do - add in dropdowns
-				//if (Configure::read('Content.dropdowns')) {
-					// lets get the children
-					//$menu['children'] = $this->menu($page['Page']['id'], $position);
-				//}
-
-				$menus[] = $menu;
+		foreach ($pages as $key => $page) {
+			$menu = array();
+			$menu['title'] = $page['Page']['name'];
+			if (!empty($page['Page']['route'])) {
+				$menu['url'] = $page['Page']['route'];
+			} else {
+				$menu['url'] = '/' . $page['Page']['slug'];
 			}
+
+			$menu['new_window'] = $page['Page']['new_window'];
+
+			// lets get the children
+			$menu['children'] = $this->menu($page['Page']['id'], $position);
+
+			$menus[] = $menu;
 		}
 
 		return $menus;
+	}
+
+/**
+ * created a clean copy of a page
+ * @param  int $id
+ * @return array
+ */
+	public function getCopy($id = null) {
+		if (!$id) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$this->contain();
+		$page = $this->findById($id);
+
+		if (!$page) {
+			throw new NotFoundException(__('Invalid page'));
+		}
+
+		$fields = array('id', 'lft', 'rght', 'slug', 'created', 'modified');
+		foreach ($fields as $field) {
+			unset($page['Page'][$field]);
+		}
+
+		$page['Page']['name'] .= ' (Copy)';
+
+		return $page;
 	}
 }

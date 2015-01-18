@@ -4,6 +4,18 @@
 	</div>
 </div>
 
+<?php if (!$siteName) : ?>
+	<div class="alert alert-danger"><i class="fa fa-info-circle"></i> <?php echo __('A Site Name is required for the website to work correctly.');?></div>
+<?php endif; ?>
+
+<?php if (!$siteEmail) : ?>
+	<div class="alert alert-danger"><i class="fa fa-info-circle"></i> <?php echo __('A Site Email is required for the website to work correctly.');?></div>
+<?php endif; ?>
+
+<?php if (!$siteName || !$siteEmail) : ?>
+	<p><?php echo $this->Html->link(__('Visit the Settings page now to resolve these issues'), array('controller' => 'settings', 'action' => 'index')); ?></p>
+<?php endif; ?>
+
 <?php
 	$folders = array(WWW_ROOT . 'img/uploads', WWW_ROOT . 'img/uploads/thumbs');
 

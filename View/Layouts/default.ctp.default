@@ -26,6 +26,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 		<?php echo $this->fetch('title'); ?>
 	</title>
 	<?php
+		if (!empty($metaDescription)) {
+			echo $this->Html->meta('description', $metaDescription);
+		}
+		if (!empty($metaKeywords)) {
+			echo $this->Html->meta('keywords', $metaKeywords);
+		}
+
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('Coderity.cake.generic');
@@ -42,11 +49,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 		</div>
 
 		<div class="menu-head" id="menu">
-				<?php echo $this->element('Coderity.menu'); ?>
+			<?php echo $this->element('Coderity.menu'); ?>
 		</div>
 
 		<div id="content">
-
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
@@ -67,6 +73,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 				</div>
 			</div>
 		</div>
-	<?php echo $this->element('sql_dump'); ?>
+		<?php
+			$analytics = $this->requestAction(array('controller' => 'settings', 'action' => 'get', 'google_analytics'));
+			if ($analytics) {
+				echo $analytics;
+			}
+		?>
+
+		<?php echo $this->element('sql_dump'); ?>
+	</div>
 </body>
 </html>

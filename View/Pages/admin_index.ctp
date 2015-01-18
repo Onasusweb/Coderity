@@ -98,6 +98,18 @@
 																 'target' => '_blank'));
 																 ?>
 								<?php
+								if (!empty($page['Page']['children'])) {
+									echo $this->Html->link('<i class="fa fa-chevron-circle-down"></i>',
+														   array('action' => 'index',
+																 $page['Page']['id']),
+														   array('class' => 'btn btn-primary',
+																 'escape' => false,
+																 'alt' => __('Subpages'),
+																 'title' => __('Subpages')));
+								}
+								?>
+
+								<?php
 								echo $this->Html->link('<i class="fa fa-edit"></i>',
 														   array('action' => 'edit',
 																 $page['Page']['id']),
@@ -106,35 +118,20 @@
 																 'alt' => __('Edit'),
 																 'title' => __('Edit')));
 								?>
-								<?php if(!empty($page['Page']['children'])) : ?>
-									<?php
-										echo $this->Html->link(__('Subpages'),
-															   array('action' => 'index',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
-								<?php if(!empty($page['Page']['form'])) : ?>
-									<?php
-										echo $this->Html->link(__('Custom Form'),
-															   array('controller'=> 'fields',
-																	 'action' => 'page',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
-								<?php if(!empty($page['Revision'])) : ?>
-									<?php
-										echo $this->Html->link(__('Previous Versions'),
-															   array('controller' => 'revisions',
-																	 'action' => 'view',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
+								<?php
+								if (!empty($page['Page']['revisions']))	{
+									echo $this->Html->link('<i class="fa fa-clipboard"></i>',
+														   array('controller' => 'revisions',
+														   		 'action' => 'model',
+														   		 'Page',
+																 $page['Page']['id']),
+														   array('class' => 'btn btn-info',
+																 'escape' => false,
+																 'alt' => __('Revisions'),
+																 'title' => __('Revisions')));
+								}
+								?>
+
 								<?php
 									echo $this->Html->link('<i class="fa fa-copy"></i>',
 														   array('action' => 'add',
@@ -224,6 +221,18 @@
 																 'title' => __('View'),
 																 'target' => '_blank'));
 																 ?>
+
+								<?php
+								if (!empty($page['Page']['children'])) {
+									echo $this->Html->link('<i class="fa fa-chevron-circle-down"></i>',
+														   array('action' => 'index',
+																 $page['Page']['id']),
+														   array('class' => 'btn btn-primary',
+																 'escape' => false,
+																 'alt' => __('Subpages'),
+																 'title' => __('Subpages')));
+								}
+								?>
 								<?php
 									echo $this->Html->link('<i class="fa fa-edit"></i>',
 														   array('action' => 'edit',
@@ -233,25 +242,7 @@
 																 'alt' => __('Edit'),
 																 'title' => __('Edit')));
 								?>
-								<?php if(!empty($page['Page']['children'])) : ?>
-									<?php
-										echo $this->Html->link(__('Subpages'),
-															   array('action' => 'index',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
-								<?php if(!empty($page['Page']['form'])) : ?>
-									<?php
-										echo $this->Html->link(__('Custom Form'),
-															   array('controller'=> 'fields',
-																	 'action' => 'page',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
+
 								<?php if(!empty($page['Revision'])) : ?>
 									<?php
 										echo $this->Html->link(__('Previous Versions'),
@@ -356,25 +347,17 @@
 																 'alt' => __('Edit'),
 																 'title' => __('Edit')));
 								?>
-								<?php if(!empty($page['Page']['children'])) : ?>
-									<?php
-										echo $this->Html->link(__('Subpages'),
-															   array('action' => 'index',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
-								<?php if(!empty($page['Page']['form'])) : ?>
-									<?php
-										echo $this->Html->link(__('Custom Form'),
-															   array('controller'=> 'fields',
-																	 'action' => 'page',
-																	 $page['Page']['id']),
-															   array('class' => 'btn btn-primary',
-																	 'escape' => false));
-									?>
-								<?php endif; ?>
+								<?php
+								if (!empty($page['Page']['children'])) {
+									echo $this->Html->link('<i class="fa fa-chevron-circle-down"></i>',
+														   array('action' => 'index',
+																 $page['Page']['id']),
+														   array('class' => 'btn btn-primary',
+																 'escape' => false,
+																 'alt' => __('Subpages'),
+																 'title' => __('Subpages')));
+								}
+								?>
 								<?php if(!empty($page['Revision'])) : ?>
 									<?php
 										echo $this->Html->link(__('Previous Versions'),
@@ -512,7 +495,7 @@
 			'opacity': 50,
 			update: function(){
 				$.ajax({
-					url: '/admin/pages/save/top',
+					url: '<?php echo $this->Html->url(array('action' => 'save', 'top')); ?>',
 					type: 'POST',
 					data: $(this).sortable('serialize'),
 					success: function(data){
@@ -530,7 +513,7 @@
 			'opacity': 50,
 			update: function(){
 				$.ajax({
-					url: '/admin/pages/save/bottom',
+					url: '<?php echo $this->Html->url(array('action' => 'save', 'bottom')); ?>',
 					type: 'POST',
 					data: $(this).sortable('serialize'),
 					success: function(data){

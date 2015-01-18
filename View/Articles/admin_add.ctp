@@ -37,6 +37,20 @@
 						?>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<?php
+							echo $this->Form->input('route',
+													array('label' => __('301 Redirect'),
+														  'class' => 'form-control',
+														  'after' => __('If set, the page will link to this URL')));
+						?>
+					</div>
+				</div>
+				<div class="checkbox check">
+					<?php echo $this->Form->input('new_window',
+												  array('label' => __('Make this article open in a new window?'))); ?>
+				</div>
 				<div class="form-group">
 					<?php echo $this->Form->submit(__('Add Article'),
 												   array('class' => 'btn btn-primary'));?>

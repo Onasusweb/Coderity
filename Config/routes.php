@@ -37,7 +37,7 @@
  */
     Router::connect('/article/*', array('plugin' => $plugin, 'controller' => 'articles', 'action' => 'view'));
 
-    $controllers = array('pages', 'users', 'articles', 'users', 'settings');
+    $controllers = array('articles', 'blocks', 'leads', 'pages', 'redirects', 'revisions', 'settings', 'users');
     foreach ($controllers as $controller) {
         Router::connect('/' . $controller, array('plugin' => $plugin, 'controller' => $controller));
         Router::connect('/' . $controller . '/:action', array('plugin' => $plugin, 'controller' => $controller, 'action' => ':action'));
@@ -53,8 +53,15 @@
  * It will automatically allow you to use /about rather than /page/about which can be useful
  * best used when their are not too many other controllers, as exceptions need to be made
 */
-    Router::connect('/:route', array('plugin' => $plugin, 'controller' => 'pages', 'action' => 'display'),
-    array(
-        'route' => '(?!add|view|display|delete|admin|users|leads|blog\b)\b[a-zA-Z0-9_-]+',
-        'pass'=>array('route')
-    ));
+    if (Configure::read('Coderity.routes.autoRouting')) {
+        $ignore = 'add|view|display|delete|admin|users|leads|blog';
+        if (Configure::read('Coderity.routes.autoRoutingIgnoreRoutes')) {
+            $ignore = Configure::read('Coderity.routes.autoRoutingIgnoreRoutes');
+        }
+
+        Router::connect('/:route', array('plugin' => $plugin, 'controller' => 'pages', 'action' => 'display'),
+        array(
+            'route' => '(?!' . $ignore . '\b)\b[a-zA-Z0-9_-]+',
+            'pass'=>array('route')
+        ));
+    }

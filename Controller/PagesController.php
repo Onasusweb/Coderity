@@ -11,31 +11,30 @@ class PagesController extends CoderityAppController {
 	public function beforeFilter(){
 		parent::beforeFilter();
 
-		if(!empty($this->Auth)) {
-			$this->Auth->allow('display');
+		if (!empty($this->Auth)) {
+			$this->Auth->allow('display', 'ckeditor');
 		}
 	}
 
 	public function display($slug = null) {
-		if (!$slug) {
-			throw new NotFoundException(__('Invalid page'));
-		}
+		$page = $this->Page->get($slug);
 
-		$page = $this->Page->findBySlug($slug);
-
-		if (!$page) {
-			throw new NotFoundException(__('Invalid page'));
-		}
-
-		if (!empty($page['Page']['view']) && $page['Page']['view'] == 'contact' && $this->request->is('post')) {
+		if (!empty($page['Page']['view']) && $this->request->is('post')) {
 			try {
-				$this->loadModel('Lead');
-				$this->Lead->saveLead($this->request->data, 'contact');
+				$model = 'Coderity.Lead';
+				if (file_exists(APP . 'Model' . DS . 'Lead.php')) {
+					$model = 'Lead';
+				}
+				ClassRegistry::init($model)->saveLead($this->request->data, $page['Page']['view']);
 
 				$this->Session->setFlash(__('Thank you for contacting us, we will be in touch with you shortly regarding your query.'));
-				$this->redirect($this->referer(array('action'=>'display', $slug)));
+
+				if (!empty($page['Page']['post_route'])) {
+					return $this->redirect($page['Page']['post_route']);
+				}
+				return $this->redirect($this->referer(array('action'=>'display', $slug)));
 			} catch (Exception $e) {
-				$this->Session->setFlash($e->getMessage());
+				$this->Session->setFlash($e->getMessage(), 'error');
 			}
 		}
 
@@ -43,17 +42,25 @@ class PagesController extends CoderityAppController {
 
 		$this->set('title_for_layout', $page['Page']['meta_title']);
 		if (!empty($page['Page']['meta_description'])) {
-			$this->set('meta_description', $page['Page']['meta_description']);
+			$this->set('metaDescription', $page['Page']['meta_description']);
 		}
 		if (!empty($page['Page']['meta_keywords'])) {
-			$this->set('meta_keywords', $page['Page']['meta_keywords']);
+			$this->set('metaKeywords', $page['Page']['meta_keywords']);
 		}
 		if (!empty($page['Page']['view'])) {
 			$this->render($page['Page']['view']);
 		}
 	}
 
-	public function admin_index($parent_id = null, $search = null) {
+/**
+ * A dynamic config file for CK Editor
+ * @return void
+ */
+	public function ckeditor() {
+		$this->layout = false;
+	}
+
+	public function admin_index($parentId = null, $search = null) {
 		if(!empty($this->request->data['Page']['search'])) {
 			$this->redirect(array(0, $this->request->data['Page']['search']));
 		}
@@ -63,37 +70,34 @@ class PagesController extends CoderityAppController {
 		if (!empty($search)) {
 			$conditions['or'] = array('Page.name LIKE' => '%'.$search.'%', 'Page.meta_title LIKE' => '%'.$search.'%', 'Page.slug LIKE' => '%'.$search.'%', 'Page.content LIKE' => '%'.$search.'%');
 		} else {
-			$conditions['parent_id'] = $parent_id;
+			$conditions['parent_id'] = $parentId;
 		}
 
-		if (!empty($parent_id)) {
-			$parent = $this->Page->findById($parent_id, 'name');
+		if ($parentId) {
+			$this->Page->contain();
+			$parent = $this->Page->findById($parentId, 'name');
 			if(empty($parent)) {
 				throw new NotFoundException(__('Invalid page'));
 			}
 
-			$parents = $this->Page->getPath($parent_id, array('id', 'name'));
+			$parents = $this->Page->getPath($parentId, array('id', 'name'));
 			$this->set(compact('parent', 'parents'));
 		}
 
 		//if (Configure::read('Content.topMenu')) {
-			$this->set('topPages', $this->Page->find('all', array('conditions' => array('top_show' => true, 'element' => false, $conditions), 'order' => array('top_order' => 'asc'))));
+			$this->set('topPages', $this->Page->find('all', array('conditions' => array('top_show' => true, 'element' => false, $conditions), 'order' => array('top_order' => 'asc'), 'contain' => false)));
 		//}
 		//if (Configure::read('Content.bottomMenu')) {
-			$this->set('bottomPages', $this->Page->find('all', array('conditions' => array('bottom_show' => true, 'element' => false, $conditions), 'order' => array('bottom_order' => 'asc'))));
+			$this->set('bottomPages', $this->Page->find('all', array('conditions' => array('bottom_show' => true, 'element' => false, $conditions), 'order' => array('bottom_order' => 'asc'), 'contain' => false)));
 		//}
-		$this->set('staticPages', $this->Page->find('all', array('conditions' => array('top_show' => false, 'bottom_show' => false, 'element' => false, $conditions), 'order' => array('Page.name' => 'asc'))));
+		$this->set('staticPages', $this->Page->find('all', array('conditions' => array('top_show' => false, 'bottom_show' => false, 'element' => false, $conditions), 'order' => array('Page.name' => 'asc'), 'contain' => false)));
 
-		//if (Configure::read('Content.pageElements')) {
-			$this->set('pageElements', $this->Page->find('all', array('conditions' => array('element' => true, $conditions), 'order' => array('Page.name' => 'asc'))));
-		//}
-
-		$this->set('parent_id', $parent_id);
+		$this->set('parent_id', $parentId);
 		$this->set('search', $search);
 	}
 
-	public function admin_add($parent_id = null, $duplicate_id = null) {
-		if($this->request->is('post')) {
+	public function admin_add($parentId = null, $duplicateId = null) {
+		if ($this->request->is('post')) {
 			$this->Page->create();
 			if ($this->Page->save($this->request->data)) {
 				$this->Session->setFlash(__('The page has been added successfully.'));
@@ -101,20 +105,24 @@ class PagesController extends CoderityAppController {
 			} else {
 				$this->Session->setFlash(__('There was a problem adding the page, please review the errors below and try again.'), 'error');
 			}
-		} elseif(!empty($duplicate_id)) {
-			$this->request->data = $this->Page->findById($duplicate_id);
+		} elseif ($duplicateId) {
+			$this->request->data = $this->Page->getCopy($duplicateId);
 		} else {
-			$this->request->data['Page']['parent_id'] = $parent_id;
+			$this->request->data['Page']['parent_id'] = $parentId;
 		}
 
 		$this->set('pages', $this->Page->generateTreeList(array('Page.element' => false), null, '{n}.Page.name', '-> '));
 	}
 
-	public function admin_edit($id = null, $revision_id = null) {
+	public function admin_edit($id = null, $revision = null) {
 		if (!$id) {
 			throw new NotFoundException(__('Invalid page'));
 		}
 
+		// not sure why, but the Revision Model needs to be loaded manually, and loaded here to work!
+		$this->loadModel('Coderity.Revision');
+
+		$this->Page->contain();
 		$page = $this->Page->findById($id);
 		if (!$page) {
 			throw new NotFoundException(__('Invalid page'));
@@ -128,19 +136,10 @@ class PagesController extends CoderityAppController {
 			}
 			$this->redirect(array('action'=>'index'));
 		} else {
-			// lets see if this page is a draft!
-			if(!empty($page['Page']['draft']) && empty($revision_id)) {
-				// lets find the latest revision
-				$revision = $this->Page->Revision->find('first', array('conditions' => array('Revision.page_id' => $id), 'order' => array('Revision.created' => 'desc', 'Revision.id' => 'desc'), 'contain' => false, 'fields' => 'Revision.id'));
-				if(!empty($revision)) {
-					$revision_id = $revision['Revision']['id'];
-				}
-			}
-
 			$this->request->data = $page;
 
-			if(!empty($revision_id)) {
-				$this->request->data = $this->Page->Revision->getRevision($revision_id, $this->request->data);
+			if ($revision) {
+				$this->request->data['Page'] = $this->Page->Revision->get($revision, $this->request->data['Page']);
 			}
 		}
 
@@ -153,19 +152,16 @@ class PagesController extends CoderityAppController {
 		$this->layout = false;
 		$message = '';
 
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			$data = $_POST;
 
-			foreach($data['page'] as $order => $id){
+			foreach ($data['page'] as $order => $id) {
 				// lets get the old modified date to ensure that it isn't updated
 				$page = $this->Page->findById($id, array('id', 'modified'));
 
-				if(!empty($page)) {
-					$page['Page'][$position.'_show']  = 1;
-					$page['Page'][$position.'_order'] = $order;
-
-					// lets not create a revision
-					$page['Page']['noRevision']  = true;
+				if (!empty($page)) {
+					$page['Page'][$position . '_show']  = 1;
+					$page['Page'][$position . '_order'] = $order;
 
 					$this->Page->save($page);
 				}

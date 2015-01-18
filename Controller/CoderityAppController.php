@@ -16,28 +16,35 @@ class CoderityAppController extends AppController {
 								));
 
 	public function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->handleRedirects();
+
 		// Change the layout to admin if the prefix is admin
 		if (!empty($this->params['prefix']) && $this->params['prefix'] == 'admin') {
 			if (Configure::read('Config.adminTheme')) {
 				$this->theme = Configure::read('Config.adminTheme');
 			}
 
-			$this->layout = 'admin';
+			$this->layout = 'Coderity.admin';
 		} elseif (Configure::read('Config.theme')) { // lets see if we are using a theme
 			$this->theme = Configure::read('Config.theme');
 		}
 	}
 
 	public function beforeRender() {
+		parent::beforeRender();
+
 		// a work around for flash messages
 		// success by default
+		if (!empty($this->params['prefix']) && $this->params['prefix'] == 'admin') {
+			if ($this->Session->check('Message.flash')) {
+				$flash = $this->Session->read('Message.flash');
 
-		if ($this->Session->check('Message.flash')) {
-			$flash = $this->Session->read('Message.flash');
-
-			if ($flash['element'] == 'default') {
-				$flash['element'] = 'success';
-				$this->Session->write('Message.flash', $flash);
+				if ($flash['element'] == 'default') {
+					$flash['element'] = 'success';
+					$this->Session->write('Message.flash', $flash);
+				}
 			}
 		}
 
@@ -57,5 +64,21 @@ class CoderityAppController extends AppController {
 		}
 
 		return true;
+	}
+
+	protected function handleRedirects() {
+		$here = trim($this->here, '/');
+	    if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
+			$here .= '?' . $_SERVER['REDIRECT_QUERY_STRING'];
+		}
+
+		$this->loadModel('Coderity.Redirect');
+		$redirect = $this->Redirect->getRedirect($here);
+
+		if ($redirect) {
+			return $this->redirect($redirect, 301);
+		}
+
+		return false;
 	}
 }
