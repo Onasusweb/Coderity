@@ -79,6 +79,20 @@
 						</li>
 					<?php endif; ?>
 
+					<?php if (Configure::read('Coderity.additionalAdminMenu')) :
+						foreach (Configure::read('Coderity.additionalAdminMenu') as $menuName => $linkDetails) : ?>
+							<li>
+								<?php
+									if (!empty($linkDetails['icon'])) {
+										$menuName = '<i class="fa ' . $linkDetails['icon'] .' fa-fw"></i> ' . $menuName;
+									}
+
+									echo $this->Html->link($menuName, $linkDetails['url'], array('escape' => false));
+								?>
+							</li>
+						<?php endforeach;
+					endif; ?>
+
 					<li>
 						<?php echo $this->Html->link('<i class="fa fa-table fa-fw"></i> ' . __('Settings'), array('plugin' => false, 'controller' => 'settings', 'action' => 'index'), array('escape' => false)); ?>
 					</li>
