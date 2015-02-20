@@ -35,10 +35,10 @@
 												  'options' => $pages,
 												  'class' => 'form-control')); ?>
 				</div>
-				<?php if (Configure::read('Content.subTitle')) : ?>
+				<?php if (Configure::read('Coderity.subTitle')) : ?>
 					<div class="form-group">
 						<?php echo $this->Form->input('sub_title',
-													  array('label' => __('Sub-title'),
+													  array('label' => __('Sub Title'),
 															'class' => 'form-control')); ?>
 					</div>
 				<?php endif; ?>

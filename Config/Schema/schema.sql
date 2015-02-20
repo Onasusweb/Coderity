@@ -85,12 +85,21 @@ CREATE TABLE IF NOT EXISTS `pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+ALTER TABLE `pages` CHANGE `route` `route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
+
+-- Added 1st Jan 2015
+
+ALTER TABLE `pages` ADD `new_window` TINYINT( 1 ) NOT NULL AFTER `bottom_order` ;
+ALTER TABLE `pages` ADD `post_route` VARCHAR( 255 ) NOT NULL AFTER `route` ;
+
+ALTER TABLE `pages` CHANGE `post_route` `post_route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
+
 --
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`id`, `parent_id`, `lft`, `rght`, `name`, `sub_title`, `meta_title`, `meta_description`, `meta_keywords`, `content`, `slug`, `route`, `view`, `class`, `top_show`, `top_order`, `bottom_show`, `bottom_order`, `element`, `created`, `modified`) VALUES
-(1, NULL, NULL, NULL, 'Home', NULL, '', '', '', '<p>Coming Soon</p>', 'home', '/', '', '', 0, NULL, 0, NULL, 0, NULL, NULL);
+INSERT INTO `pages` (`id`, `parent_id`, `lft`, `rght`, `name`, `sub_title`, `meta_title`, `meta_description`, `meta_keywords`, `content`, `slug`, `route`, `post_route`, `view`, `class`, `top_show`, `top_order`, `bottom_show`, `bottom_order`, `new_window`, `element`, `created`, `modified`) VALUES
+(1, NULL, 1, 2, 'Home', NULL, 'Home', '', '', '<p>Coming Soon</p>\r\n', 'home', '/', '', '', '', 1, 0, 0, NULL, 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -140,9 +149,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Dumping data for table `users`
 --
-
-ALTER TABLE `pages` CHANGE `route` `route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
-
 
 --
 -- Table structure for table `redirects`
@@ -206,13 +212,6 @@ CREATE TABLE IF NOT EXISTS `revisions` (
   KEY `model_id` (`model_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- Added 1st Jan 2015
-
-ALTER TABLE `pages` ADD `new_window` TINYINT( 1 ) NOT NULL AFTER `bottom_order` ;
-ALTER TABLE `pages` ADD `post_route` VARCHAR( 255 ) NOT NULL AFTER `route` ;
-
-ALTER TABLE `pages` CHANGE `post_route` `post_route` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
 
 -- Added 9th Jan 2015
 
